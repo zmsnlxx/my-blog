@@ -9,7 +9,22 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
-    "vue": "^2.6.10"
+    "vue": "^2.6.10",
+    "chart.js": "^2.7.3",
+    "element-ui": "^2.4.11",
+    "express": "^4.16.3",
+    "js-cookie": "^2.2.0",
+    "jszip": "^3.1.5",
+    "less": "^3.0.4",
+    "less-loader": "^4.1.0",
+    "lodash": "^4.17.10",
+    "vue-chartjs": "^3.4.0",
+    "vue-class-component": "^6.3.2",
+    "vue-property-decorator": "^7.2.0",
+    "vue-router": "^3.0.1",
+    "vue-template-compiler": "^2.5.17",
+    "vuex": "^3.0.1",
+    "vuex-class": "^0.3.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.7.0",
