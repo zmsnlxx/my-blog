@@ -7,8 +7,7 @@ const router = express.Router()
 // cookie编码程序
 function CodeCookie (str) {
     let strRtn = ""
-    
-    for (const i = str.length - 1; i >= 0; i--) {
+    for (let i = str.length - 1; i >= 0; i--) {
         strRtn += str.charCodeAt(i)
         if (i) strRtn += "a" //用a作分隔符
     }
@@ -17,9 +16,8 @@ function CodeCookie (str) {
 
 // 注册接口
 router.post("/api/user/register", (req, res) => {
-    console.log(req.body)
     db.userInfo.findOne({
-            name: req.body.name
+            email: req.body.email
         },
         (err, data) => {
             if (data) {
@@ -60,12 +58,12 @@ router.post("/api/user/register", (req, res) => {
 // 登录接口
 router.post("/api/user/login", (req, res) => {
     db.userInfo.findOne({
-            name: req.body.name
+            email: req.body.email
         },
         (err, data) => {
             if (data) {
                 if (data.password === req.body.password) {
-                    res.cookie("name", CodeCookie(data.name), {
+                    res.cookie("email", CodeCookie(data.email), {
                         //有效期，单位是秒
                         maxAge: 1000 * 24 * 60 * 60
                     })
