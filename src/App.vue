@@ -1,30 +1,30 @@
 <template>
-	<div id="app">
-		<img alt="Vue logo" src="./assets/logo.png">
-		<HelloWorld msg="Welcome to Your Vue.js App"/>
-		<h1>lxx</h1>
-		<h1>调试</h1>
+	<div id="app" :style="$route.path === '/login' ? {backgroundImage:'url(' + imageUrl +')',backgroundSize: '100% 100%'} : {}">
+		<router-view/>
 	</div>
 </template>
 
 <script>
-    import HelloWorld from './components/HelloWorld.vue'
+    import {Vue, Component} from 'vue-property-decorator'
+    import imageUrl from './assets/background.jpg'
     
-    export default {
-        name: 'app',
-        components: {
-            HelloWorld
-        }
+    @Component
+    export default class login extends Vue {
+        imageUrl = imageUrl
     }
 </script>
 
 <style>
+	html, body {
+		margin: 0;
+		padding: 0;
+		background-color: #eff1f4;
+		font-size: 14px;
+		height: 100%;
+		background-size: 100% 100%;
+	}
+	
 	#app {
-		font-family: 'Avenir', Helvetica, Arial, sans-serif;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		text-align: center;
-		color: #2c3e50;
-		margin-top: 60px;
+		height: 100%;
 	}
 </style>
