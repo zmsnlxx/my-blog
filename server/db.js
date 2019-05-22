@@ -15,6 +15,8 @@ const User = new mongoose.Schema({
     email: String,
 })
 
-module.exports = {
-    User,
-}
+const db = {
+    userInfo: mongoose.model("userInfo", User),
+};
+
+module.exports = db;

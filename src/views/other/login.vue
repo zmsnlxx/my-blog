@@ -25,7 +25,7 @@
 								<el-input v-model="userForm.password" placeholder="请输入密码"></el-input>
 							</el-form-item>
 							<el-form-item>
-								<el-button type="primary">登录</el-button>
+								<el-button type="primary" @click="login">登录</el-button>
 							</el-form-item>
 						</el-form>
 					</div>
@@ -41,18 +41,32 @@
     
     
     @Component({components: {TopNav}})
+    
     export default class login extends Vue {
         userForm = {
             email: '',
             name: '',
             password: ''
         }
-    
+        
+        
+        login () {
+            this.$api.login(this.userForm).then(req => {
+                const {code, data} = req.data
+                if (code === 0) {
+                    this.$router.push({path: '/'})
+                } else {
+                    this.$message.error(data.message)
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+        }
     }
 </script>
 
 <style lang="less">
-	.login{
+	.login {
 		width: 100%;
 		height: 100%;
 		position: relative;
