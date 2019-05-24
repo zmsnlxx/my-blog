@@ -1,4 +1,4 @@
-import apiList from './api'
+import apiList from './api/index.js'
 const install = function (Vue) {
     if (install.installed) {
         return install.installed = true

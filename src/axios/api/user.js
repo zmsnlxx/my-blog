@@ -1,4 +1,4 @@
-import axios from './axios.js'
+import axios from '../axios.js'
 
 // 登录接口
 const login = (params) => {
@@ -9,9 +9,8 @@ const register = (params) => {
     return axios.post(`user/register`, params)
 }
 
-
-const apiList = {
+const user = {
     login,
     register,
 }
-export default apiList
+export default user
