@@ -30,7 +30,7 @@ router.post("/api/user/register", (req, res) => {
             } else {
                 const newUser = new db.userInfo({
                     name: req.body.name,
-                    password: req.body.password,
+                    password: req.body.pass,
                     email: req.body.email,
                 })
                 newUser.save(function (err) {

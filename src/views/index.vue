@@ -2,7 +2,7 @@
 <template>
 	<section class="entrance">
 		<!-- 头部 -->
-		<top-nav/>
+		<header-nav/>
 		<!-- 内容部分 -->
 		<!--
 			transition：vue的动画标签，需要执行动画的内容使用transition包裹，
@@ -29,8 +29,10 @@
 <script>
     import {Vue, Component} from 'vue-property-decorator'
     import TopNav from './other/TopNav'
-    
-    @Component({components: {TopNav}})
+    import HeaderNav from './other/header'
+
+
+    @Component({components: {TopNav,HeaderNav}})
     
     export default class Entrance extends Vue {
         show = false

@@ -45,7 +45,7 @@
 						<span>欢迎注册</span>
 					</div>
 					<div style="margin-top: 20px">
-						<el-form label-width="80px" :model="registerForm" :rules="rules" ref="ruleForm">
+						<el-form label-width="80px" status-icon :model="registerForm" :rules="rules" ref="ruleForm">
 							<el-form-item label="邮箱" prop="email">
 								<el-input type="email" v-model="registerForm.email" placeholder="请输入邮箱"></el-input>
 							</el-form-item>
@@ -53,13 +53,13 @@
 								<el-input type="text" v-model="registerForm.name" placeholder="请输入昵称"></el-input>
 							</el-form-item>
 							<el-form-item label="密码" prop="pass">
-								<el-input type="password" v-model="registerForm.password" placeholder="请输入密码" autocomplete="new-password"></el-input>
+								<el-input type="password" v-model="registerForm.pass" placeholder="请输入密码" autocomplete="new-password"></el-input>
 							</el-form-item>
-							<el-form-item label="密码验证" prop="checkPass">
-								<el-input type="password" v-model="registerForm.psw" placeholder="请再次输入密码"></el-input>
+							<el-form-item label="确认密码" prop="checkPass">
+								<el-input type="password" v-model="registerForm.checkPass" placeholder="请再次输入密码" autocomplete="new-password"></el-input>
 							</el-form-item>
 							<el-form-item>
-								<el-button type="primary" @click="register">注册</el-button>
+								<el-button type="primary" @click="register('ruleForm')">注册</el-button>
 							</el-form-item>
 						</el-form>
 					</div>
@@ -84,46 +84,46 @@
         registerForm = {
             email: '',
             name: '',
-            password: '',
-            psw: ''
+            pass: '',
+            checkPass: ''
         }
         loginShow = false
         registerShow = false
-	    
+        
         validatePass = (rule, value, callback) => {
             if (value === '') {
-                callback(new Error('请输入密码'));
+                callback(new Error('请输入密码'))
             } else {
-                if (this.registerForm.password !== '') {
-                    this.$refs.ruleForm.validateField('checkPass');
+                if (this.registerForm.checkPass !== '') {
+                    this.$refs.ruleForm.validateField('checkPass')
                 }
-                callback();
+                callback()
             }
         }
-        checkPass = (rule, value, callback) => {
+        validatePass2 = (rule, value, callback) => {
             if (value === '') {
-                callback(new Error('请再次输入密码'));
-            } else if (value !== this.registerForm.psw) {
-                callback(new Error('两次输入密码不一致!'));
+                callback(new Error('请再次输入密码'))
+            } else if (value !== this.registerForm.pass) {
+                callback(new Error('两次输入密码不一致!'))
             } else {
-                callback();
+                callback()
             }
         }
-		    rules = {
+        rules = {
             email: [
-                { required: true, message: '请输入邮箱地址', trigger: 'blur' },
-                { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
+                {required: true, message: '请输入邮箱地址', trigger: 'blur'},
+                {type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change']}
             ],
             name: [
-                { required: true, message: '请输入活动名称', trigger: 'blur' },
-                { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+                {required: true, message: '请输入昵称', trigger: 'blur'},
+                {min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur'}
             ],
             pass: [
-                { validator: this.validatePass, trigger: 'blur' }
+                {validator: this.validatePass, trigger: 'blur'}
             ],
             checkPass: [
-                { validator: this.checkPass, trigger: 'blur' }
-            ]
+                {validator: this.validatePass2, trigger: 'blur'}
+            ],
         }
         
         
@@ -153,23 +153,32 @@
             }, 500)
         }
         
-        register () {
-            this.$api.register(this.registerForm).then(req => {
-                const {code, data} = req.data
-                if (code === 0) {
-                    this.$message({
-                        message: data.message,
-                        type: 'success'
+        register (formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    this.$api.register(this.registerForm).then(req => {
+                        const {code, data} = req.data
+                        if (code === 0) {
+                            this.$message({
+                                message: data.message,
+                                type: 'success'
+                            })
+                            this.registerShow = false
+                            setTimeout(() => {
+                                this.loginShow = true
+                            }, 500)
+                        } else {
+                            this.$message.error(data.message)
+                        }
+                    }).catch(err => {
+                        console.log(err)
                     })
-                    this.registerShow = false
-                    setTimeout(() => {
-                        this.loginShow = true
-                    }, 500)
                 } else {
-                    this.$message.error(data.message)
+                    this.$message({
+		                    type: 'error',
+		                    message: '注册信息错误,请检查'
+                    })
                 }
-            }).catch(err => {
-                console.log(err)
             })
         }
     }
