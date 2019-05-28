@@ -1,33 +1,31 @@
 <template>
 	<section class="header">
-		<div class="header_nav">
-			<transition
-				mode="out-in"
-				name="custom-classes-transition"
-				enter-active-class="animated fadeInDown"
-				leave-active-class="animated fadeOut"
-			>
-				<ul class="ul" v-show="headerInit">
-					<el-icon class="el-icon-close li close" @click.native="closeHeader"/>
-					<li class="li">首页</li>
-					<li class="li">更新</li>
-					<li class="li">归档</li>
-					<li class="li">留言</li>
-					<li class="li">
-						<el-input class="input" type="text" placeholder="Try to search ..." @change="handlerSearch" v-model="value" suffix-icon="el-icon-search"/>
-					</li>
-				</ul>
-			</transition>
-			
-			<transition
-				mode="out-in"
-				name="custom-classes-transition"
-				enter-active-class="animated fadeInDown"
-				leave-active-class="animated fadeOut"
-			>
-				<el-icon v-if="show" class="el-icon-s-grid icon" @click.native="openHeader"/>
-			</transition>
-		</div>
+		<transition
+			mode="out-in"
+			name="custom-classes-transition"
+			enter-active-class="animated fadeInDown"
+			leave-active-class="animated fadeOut"
+		>
+			<ul class="ul" v-show="headerInit">
+				<el-icon class="el-icon-close li close" @click.native="closeHeader"/>
+				<li class="li">首页</li>
+				<li class="li">更新</li>
+				<li class="li">归档</li>
+				<li class="li">留言</li>
+				<li class="li">
+					<el-input class="input" type="text" placeholder="Try to search ..." @change="handlerSearch" v-model="value" suffix-icon="el-icon-search"/>
+				</li>
+			</ul>
+		</transition>
+		
+		<transition
+			mode="out-in"
+			name="custom-classes-transition"
+			enter-active-class="animated fadeInDown"
+			leave-active-class="animated fadeOut"
+		>
+			<el-icon v-if="show" class="el-icon-s-grid icon" @click.native="openHeader"/>
+		</transition>
 	</section>
 </template>
 
@@ -35,37 +33,37 @@
     import {Vue, Component} from 'vue-property-decorator'
     
     @Component
-    export default class TopNav extends Vue {
+    export default class HeaderNav extends Vue {
         headerInit = false
         show = false
         value = null
-    
-    
-	      mounted(){
+        
+        
+        mounted () {
             setTimeout(() => {
                 this.headerInit = !this.headerInit
-            },500)
-	      }
-	      
-	      closeHeader(){
+            }, 500)
+        }
+        
+        closeHeader () {
             this.headerInit = !this.headerInit
-			      setTimeout(() => {
-			          this.show = !this.show
-			      },1000)
-	      }
-	      
-	      openHeader(){
+            setTimeout(() => {
+                this.show = !this.show
+            }, 1000)
+        }
+        
+        openHeader () {
             this.show = !this.show
             setTimeout(() => {
                 this.headerInit = !this.headerInit
-            },1000)
-	      }
-	      
-        handlerSearch(){
+            }, 1000)
+        }
+        
+        handlerSearch () {
             console.log(this.value)
-		        setTimeout(() => {
+            setTimeout(() => {
                 this.value = null
-            },50)
+            }, 50)
         }
         
     }
@@ -74,42 +72,39 @@
 <style lang="less" scoped>
 	.header {
 		z-index: 100;
-		height: 250px;
 		width: 100%;
 		position: relative;
-		.header_nav {
-			height: 30px;
-			.icon {
+		height: 60px;
+		.icon {
+			color: white;
+			font-size: 30px;
+			display: inline-block;
+			margin-left: 160px;
+			margin-top: 20px;
+			line-height: 30px;
+			
+		}
+		.ul {
+			padding-left: 0;
+			width: 80%;
+			height: 60px;
+			margin: 0 auto;
+			.li {
 				color: white;
-				font-size: 30px;
-				display: inline-block;
-				margin-left: 80px;
-				margin-top: 50px;
-				line-height: 30px;
-				
+				width: 80px;
+				font-size: 18px;
+				list-style: none;
+				float: left;
+				text-align: center;
+				line-height: 60px;
+				.input {
+					margin-left: 60px;
+					width: 200px;
+					line-height: 60px;
+				}
 			}
-			.ul {
-				margin: 0;
-				padding-top: 50px;
-				.li {
-					color: white;
-					width: 80px;
-					height: 30px;
-					font-size: 18px;
-					list-style: none;
-					float: left;
-					text-align: center;
-					line-height: 30px;
-					.input {
-						margin-left: 30px;
-						width: 200px;
-						height: 30px;
-						line-height: 30px;
-					}
-				}
-				.close {
-					font-size: 30px;
-				}
+			.close {
+				font-size: 30px;
 			}
 		}
 	}

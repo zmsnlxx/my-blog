@@ -76,7 +76,7 @@
     
     @Component({components: {TopNav}})
     
-    export default class login extends Vue {
+    export default class LoginNav extends Vue {
         userForm = {
             email: '',
             password: ''

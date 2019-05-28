@@ -3,15 +3,6 @@
 		<div id='stars'></div>
 		<div id='stars2'></div>
 		<div id='stars3'></div>
-		<div id='title'>
-	    <span>
-		    zmsn lxx
-		  </span>
-			<br>
-			<span>
-	      You must be the best..
-	    </span>
-		</div>
 		<router-view/>
 	</div>
 </template>
@@ -20,14 +11,19 @@
     import {Vue, Component} from 'vue-property-decorator'
     
     @Component
-    export default class login extends Vue {
-	   
+    export default class App extends Vue {
+    
     }
 </script>
 
 <style>
 	html, body {
+		margin: 0;
+	}
+	
+	#app {
 		height: 100%;
+		margin: 0;
 		background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
 	}
 	
