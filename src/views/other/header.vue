@@ -12,7 +12,7 @@
 				<li class="li">文章</li>
 				<li class="li">更新</li>
 				<li class="li">留言</li>
-				<li class="li">编辑</li>
+				<li class="li" v-show="canIEdit">编辑</li>
 				<li class="li">
 					<el-input class="input" type="text" placeholder="Try to search ..." @change="handlerSearch" v-model="value" suffix-icon="el-icon-search"/>
 				</li>
@@ -32,6 +32,7 @@
 
 <script>
     import {Vue, Component} from 'vue-property-decorator'
+    import JsCookie from 'js-cookie'
     
     @Component
     export default class HeaderNav extends Vue {
@@ -44,6 +45,15 @@
             setTimeout(() => {
                 this.headerInit = !this.headerInit
             }, 500)
+        }
+        
+        get canIEdit(){
+            const cookie = JsCookie.get('email')
+		        if(cookie){
+                return !!this.$util.DecodeCookie(cookie)
+            }else{
+		            return false
+		        }
         }
         
         closeHeader () {

@@ -19,10 +19,10 @@
 <style>
 	html, body {
 		margin: 0;
+		height: 100%;
 	}
 	
 	#app {
-		height: 100%;
 		margin: 0;
 		background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
 	}

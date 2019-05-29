@@ -1,7 +1,5 @@
 <template>
 	<section class="login">
-		<TopNav/>
-		
 		<!-- 登录 -->
 		<transition
 			mode="out-in"
@@ -156,6 +154,7 @@
         register (formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
+                    console.log(this.registerForm)
                     this.$api.register(this.registerForm).then(req => {
                         const {code, data} = req.data
                         if (code === 0) {
@@ -187,7 +186,7 @@
 <style lang="less">
 	.login {
 		width: 100%;
-		height: 100%;
+		height: 850px;
 		position: relative;
 		.model {
 			position: absolute;

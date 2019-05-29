@@ -11,7 +11,7 @@ const ajax = axios.create({
 })
 /*请求拦截器（请求之前的操作）*/
 ajax.interceptors.request.use(req => {
-        return req.data
+        return req
     },
     /*错误操作*/
     err => {

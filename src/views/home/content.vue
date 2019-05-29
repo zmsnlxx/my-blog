@@ -1,9 +1,12 @@
 <template>
 	<section class="content">
-		<swiper-nav></swiper-nav>
+		<!-- 轮播图 -->
+		<swiper-nav ></swiper-nav>
+		<!-- 分类标签 -->
 		<label-nav :label="label">
 			<el-icon slot="icon" style="font-size: 20px;margin-left: 10px" class="el-icon-magic-stick"></el-icon>
 		</label-nav>
+		<!-- 文章列表 -->
 		<card-nav :data="data"></card-nav>
 	</section>
 </template>
