@@ -22,7 +22,7 @@
     "vue": "^2.6.10",
     "vue-chartjs": "^3.4.0",
     "vue-class-component": "^6.3.2",
-    "vue-property-decorator": "^7.2.0",
+    "vue-property-decorator": "^7.3.0",
     "vue-router": "^3.0.1",
     "vue-template-compiler": "^2.5.17",
     "vuex": "^3.0.1",

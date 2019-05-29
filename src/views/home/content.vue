@@ -1,29 +1,10 @@
 <template>
 	<section class="content">
 		<swiper-nav></swiper-nav>
-		<div class="class_title">
-			<el-icon class="el-icon-magic-stick icon"></el-icon>
-			<span class="title">最新文章</span>
-		</div>
+		<label-nav :label="label">
+			<el-icon slot="icon" style="font-size: 20px;margin-left: 10px" class="el-icon-magic-stick"></el-icon>
+		</label-nav>
 		<card-nav :data="data"></card-nav>
-		<!--<div class="test" v-for="(item,index) in data" :key="index">-->
-			<!--<el-row :gutter="10" class="row">-->
-				<!--<el-col :span="8" class="col">-->
-					<!--<el-image class="img" :src="item.url" lazy></el-image>-->
-				<!--</el-col>-->
-				<!--<el-col class="col" :span="16">-->
-					<!--<h1 class="title">{{ item.title }}</h1>-->
-					<!--<div class='text'>{{ item.text }}</div>-->
-					<!--<div class="desc">-->
-						<!--<span class="desc_item"><el-icon class="el-icon-timer icon"></el-icon>{{ item.time }}</span>-->
-						<!--<span class="desc_item"><el-icon class="el-icon-user-solid icon"></el-icon>{{ item.author }}</span>-->
-						<!--<span class="desc_item"><el-icon class="el-icon-view icon"></el-icon>{{ item.record }}</span>-->
-						<!--<span class="desc_item"><el-icon class="el-icon-star-off icon"></el-icon>{{ item.like }}</span>-->
-						<!--<span class="desc_item right"><el-icon class="el-icon-s-fold icon"></el-icon>{{ item.class }}</span>-->
-					<!--</div>-->
-				<!--</el-col>-->
-			<!--</el-row>-->
-		<!--</div>-->
 	</section>
 </template>
 
@@ -33,6 +14,7 @@
     
     @Component({components: {SwiperNav}})
     export default class ContentNav extends Vue {
+        label = '推荐文章'
         urls = [
             'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
             'https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg',
@@ -96,24 +78,5 @@
     }
 </script>
 <style lang="less" scoped>
-	.content {
-		.class_title{
-			margin-top: 20px;
-			width: 256px;
-			height: 40px;
-			background-color: bisque;
-			line-height: 40px;
-			font-size: 18px;
-			border-radius: 0 18px 18px 0;
-			.icon{
-				font-size: 20px;
-				margin-left: 10px;
-			}
-			.title{
-				display: inline-block;
-				margin-left: 10px;
-				
-			}
-		}
-	}
+
 </style>

@@ -9,9 +9,10 @@
 			<ul class="ul" v-show="headerInit">
 				<el-icon class="el-icon-close li close" @click.native="closeHeader"/>
 				<li class="li">首页</li>
+				<li class="li">文章</li>
 				<li class="li">更新</li>
-				<li class="li">归档</li>
 				<li class="li">留言</li>
+				<li class="li">编辑</li>
 				<li class="li">
 					<el-input class="input" type="text" placeholder="Try to search ..." @change="handlerSearch" v-model="value" suffix-icon="el-icon-search"/>
 				</li>
@@ -79,7 +80,7 @@
 			color: white;
 			font-size: 30px;
 			display: inline-block;
-			margin-left: 160px;
+			margin-left: 140px;
 			margin-top: 20px;
 			line-height: 30px;
 			
@@ -104,6 +105,7 @@
 				}
 			}
 			.close {
+				text-align: left;
 				font-size: 30px;
 			}
 		}

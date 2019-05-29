@@ -3,7 +3,8 @@
 		<div class="test" v-for="(item,index) in data" :key="index">
 			<el-row :gutter="10" class="row">
 				<el-col :span="8" class="col">
-					<el-image class="img" :src="item.url" lazy></el-image>
+					<el-image v-if="index < 3" class="img" :src="item.url"></el-image>
+					<el-image v-else class="img" :src="item.url" lazy></el-image>
 				</el-col>
 				<el-col class="col" :span="16">
 					<h1 class="title">{{ item.title }}</h1>
@@ -26,57 +27,7 @@
     
     @Component
     export default class CardNav extends Vue {
-        data = [
-            {
-                url: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
-                title: '拿什么来拯救我的孤单',
-                text: '我孤独了好久，直到遇见你。我一直很纳闷，为什么我眼中的世界，和别人看到的不一样？我内心住着的那个小孩为什么死了，我为什么不能永葆童真，为什么我会害怕并且讨厌和别人相处，即使对待自己的亲人也是如此。为什么我喜欢一个人独处，还不会感到一丝丝的寂寞和孤单？',
-                time: '2019-05-28',
-                author: 'lxx',
-                record: 15000,
-                like: 1000,
-                class:'JavaScript'
-            },
-            {
-                url: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
-                title: '拿什么来拯救我的孤单',
-                text: '我孤独了好久，直到遇见你。我一直很纳闷，为什么我眼中的世界，和别人看到的不一样？我内心住着的那个小孩为什么死了，我为什么不能永葆童真，为什么我会害怕并且讨厌和别人相处，即使对待自己的亲人也是如此。为什么我喜欢一个人独处，还不会感到一丝丝的寂寞和孤单？',
-                time: '2019-05-28',
-                author: 'lxx',
-                record: 15000,
-                like: 1000,
-                class:'JavaScript'
-            },{
-                url: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
-                title: '拿什么来拯救我的孤单',
-                text: '我孤独了好久，直到遇见你。我一直很纳闷，为什么我眼中的世界，和别人看到的不一样？我内心住着的那个小孩为什么死了，我为什么不能永葆童真，为什么我会害怕并且讨厌和别人相处，即使对待自己的亲人也是如此。为什么我喜欢一个人独处，还不会感到一丝丝的寂寞和孤单？',
-                time: '2019-05-28',
-                author: 'lxx',
-                record: 15000,
-                like: 1000,
-                class:'JavaScript'
-            },{
-                url: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
-                title: '拿什么来拯救我的孤单',
-                text: '我孤独了好久，直到遇见你。我一直很纳闷，为什么我眼中的世界，和别人看到的不一样？我内心住着的那个小孩为什么死了，我为什么不能永葆童真，为什么我会害怕并且讨厌和别人相处，即使对待自己的亲人也是如此。为什么我喜欢一个人独处，还不会感到一丝丝的寂寞和孤单？',
-                time: '2019-05-28',
-                author: 'lxx',
-                record: 15000,
-                like: 1000,
-                class:'JavaScript'
-            },{
-                url: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
-                title: '拿什么来拯救我的孤单',
-                text: '我孤独了好久，直到遇见你。我一直很纳闷，为什么我眼中的世界，和别人看到的不一样？我内心住着的那个小孩为什么死了，我为什么不能永葆童真，为什么我会害怕并且讨厌和别人相处，即使对待自己的亲人也是如此。为什么我喜欢一个人独处，还不会感到一丝丝的寂寞和孤单？',
-                time: '2019-05-28',
-                author: 'lxx',
-                record: 15000,
-                like: 1000,
-                class:'JavaScript'
-            }
-        ]
-	    
-        
+        @Prop(Array) data
     }
 </script>
 

@@ -2,8 +2,8 @@
 	<section class="list">
 		<author-nav></author-nav>
 		<make-complaints></make-complaints>
-		<!--<lately-nav></lately-nav>-->
-		<author-nav></author-nav>
+		<lately-nav></lately-nav>
+		<article-nav></article-nav>
 		<author-nav></author-nav>
 	</section>
 </template>
@@ -13,10 +13,12 @@
     import AuthorNav from './author'
     import MakeComplaints from './MakeComplaints'
     import LatelyNav from './lately'
+    import ArticleNav from './article'
 
 
 
-    @Component({components:{AuthorNav,MakeComplaints,LatelyNav}})
+
+    @Component({components:{AuthorNav,MakeComplaints,LatelyNav,ArticleNav}})
     export default class ListNav extends Vue {
     
     }
