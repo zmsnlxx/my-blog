@@ -19,9 +19,9 @@
 						mode="out-in"
 						name="custom-classes-transition"
 						enter-active-class="animated fadeInLeft"
-						leave-active-class="animated bounceOutRight"
+						leave-active-class="animated bounceOutLeft"
 					>
-						<keep-alive v-if="show">
+						<keep-alive v-show="show">
 							<router-view class="main-content"/>
 						</keep-alive>
 					</transition>
@@ -54,13 +54,11 @@
     
     export default class Entrance extends Vue {
         show = false
+		listShow = false
         
         mounted () {
-            setTimeout(() => {
-                this.show = true
-            }, 500)
-            this.listShow = true
-    
+			this.show = true
+			this.listShow = true
         }
     }
 </script>
@@ -70,8 +68,8 @@
 		width: 100%;
 		.content{
 			width: 80%;
-			margin: 0 auto;
-			margin-top: 20px;
+			margin: 20px auto;
+			/*margin-top: 20px;*/
 		}
 		.footer{
 			width: 100%;

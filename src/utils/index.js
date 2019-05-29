@@ -11,7 +11,7 @@ export const DecodeCookie = (str) => {
     let strArr
     let strRtn = ""
     strArr = str.split("a")
-    for (var i = _.size(strArr) - 1; i >= 0; i--) {
+    for (let i = _.size(strArr) - 1; i >= 0; i--) {
         strRtn += String.fromCharCode(eval(strArr[i]))
     }
     return strRtn
