@@ -8,11 +8,11 @@
         >
             <ul class="ul" v-show="headerInit">
                 <el-icon class="el-icon-close li close" @click.native="closeHeader"/>
-                <li class="li"><router-link class="routerJump" to="/home">首页</router-link></li>
-                <li class="li"><router-link class="routerJump" to="/article">文章</router-link></li>
-                <li class="li"><router-link class="routerJump" to="/newArticle">更新</router-link></li>
-                <li class="li"><router-link class="routerJump" to="/comment">留言</router-link></li>
-                <li class="li" v-show="canIEdit"><router-link class="routerJump" to="/edit">编辑</router-link></li>
+                <li class="li"><router-link class="routerJump" :style="{color: currentPath === '/home' ? 'bisque' : 'white'}" to="/home">首页</router-link></li>
+                <li class="li"><router-link class="routerJump" :style="{color: currentPath === '/article' ? 'bisque' : 'white'}" to="/article">文章</router-link></li>
+                <li class="li"><router-link class="routerJump" :style="{color: currentPath === '/newArticle' ? 'bisque' : 'white'}" to="/newArticle">更新</router-link></li>
+                <li class="li"><router-link class="routerJump" :style="{color: currentPath === '/comment' ? 'bisque' : 'white'}" to="/comment">留言</router-link></li>
+                <li class="li" v-show="canIEdit"><router-link :style="{color: currentPath === '/edit' ? 'bisque' : 'white'}" class="routerJump" to="/edit">编辑</router-link></li>
                 <li class="li">
                     <el-input class="input" type="text" placeholder="Try to search ..." @change="handlerSearch"
                               v-model="value" suffix-icon="el-icon-search"/>
@@ -46,6 +46,10 @@
             setTimeout(() => {
                 this.headerInit = !this.headerInit
             }, 500)
+        }
+
+        get currentPath(){
+            return this.$route.path
         }
 
         get canIEdit() {

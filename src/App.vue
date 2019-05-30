@@ -17,6 +17,8 @@
 </script>
 
 <style>
+	@import 'assets/css/common.less';
+
 	html, body {
 		margin: 0;
 		height: 100%;

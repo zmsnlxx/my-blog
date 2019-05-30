@@ -34,11 +34,5 @@
 <style lang="less" scoped>
     .article {
         margin-bottom: 20px;
-        .title {
-            text-align: center;
-            height: 30px;
-            display: inline-block;
-            line-height: 30px
-        }
     }
 </style>
