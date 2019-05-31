@@ -1,8 +1,10 @@
-import user from './user.js'
+import user from './user'
+import comment from './comment'
 
 
 const apiList = {
     // 分模块
-    ...user
+    ...user,
+    ...comment
 }
 export default apiList

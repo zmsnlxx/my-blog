@@ -10,13 +10,23 @@
                 <el-icon class="el-icon-close li close" @click.native="closeHeader"/>
                 <li class="li"><router-link class="routerJump" :style="{color: currentPath === '/home' ? 'bisque' : 'white'}" to="/home">首页</router-link></li>
                 <li class="li"><router-link class="routerJump" :style="{color: currentPath === '/article' ? 'bisque' : 'white'}" to="/article">文章</router-link></li>
-                <li class="li"><router-link class="routerJump" :style="{color: currentPath === '/newArticle' ? 'bisque' : 'white'}" to="/newArticle">更新</router-link></li>
+<!--                <li class="li"><router-link class="routerJump" :style="{color: currentPath === '/newArticle' ? 'bisque' : 'white'}" to="/newArticle">更新</router-link></li>-->
                 <li class="li"><router-link class="routerJump" :style="{color: currentPath === '/comment' ? 'bisque' : 'white'}" to="/comment">留言</router-link></li>
                 <li class="li" v-show="canIEdit"><router-link :style="{color: currentPath === '/edit' ? 'bisque' : 'white'}" class="routerJump" to="/edit">编辑</router-link></li>
                 <li class="li">
                     <el-input class="input" type="text" placeholder="Try to search ..." @change="handlerSearch"
                               v-model="value" suffix-icon="el-icon-search"/>
                 </li>
+                <li v-if="isLogin" class="li" style="float: right">
+                    <el-dropdown style="width: 100%;height: 100%;" placement="top-end">
+                        <el-button style="width: 100%;height: 100%;font-size: 18px;color: white" type="text">lxx</el-button>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item>个人资料</el-dropdown-item>
+                            <el-dropdown-item @click.native="clearUser">退出登录</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                </li>
+                <li v-else class="li" style="float: right"><router-link class="routerJump" to="/login">[登录]</router-link></li>
             </ul>
         </transition>
 
@@ -46,6 +56,16 @@
             setTimeout(() => {
                 this.headerInit = !this.headerInit
             }, 500)
+        }
+
+        get isLogin(){
+            console.log(!!JsCookie.get('email'));
+            return !!JsCookie.get('email')
+        }
+
+        clearUser(){
+            JsCookie.remove('email')
+            this.$router.push({path:'/login'})
         }
 
         get currentPath(){

@@ -2,6 +2,8 @@
 
 import axios from 'axios'
 import {Message} from "element-ui"
+import JsCookie from 'js-cookie'
+import _ from 'lodash'
 import router from "../router"
 
 /*创建axios实例对象*/
@@ -11,6 +13,7 @@ const ajax = axios.create({
 })
 /*请求拦截器（请求之前的操作）*/
 ajax.interceptors.request.use(req => {
+        // _.isEmpty(JsCookie.get('email'))
         return req
     },
     /*错误操作*/

@@ -15,8 +15,20 @@ const User = new mongoose.Schema({
     email: String,
 })
 
+const Comment = new mongoose.Schema({
+    time: String,
+    value: String,
+    userName: String,
+    url: String,
+    Os: String,
+    browse: String,
+    reply: Array,
+    isReply: Boolean
+})
+
 const db = {
     userInfo: mongoose.model("userInfo", User),
+    commentInfo: mongoose.model("commentInfo", Comment),
 };
 
 module.exports = db;

@@ -19,6 +19,7 @@
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
     "lodash": "^4.17.10",
+    "moment": "^2.24.0",
     "vue": "^2.6.10",
     "vue-chartjs": "^3.4.0",
     "vue-class-component": "^6.3.2",

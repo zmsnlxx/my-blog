@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import moment from 'moment'
 
 
 /**
@@ -26,5 +27,6 @@ export default {
         Vue.prototype.$lo = _
         Vue.prototype._ = _
         Vue.prototype.$util = util
+        Vue.prototype.moment = moment
     }
 }
