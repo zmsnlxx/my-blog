@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://127.0.0.1:27017/myBlog", function (err) {
+mongoose.connect("mongodb://127.0.0.1:27017/myBlog", err => {
     if (err) {
         console.log("数据库连接失败");
     } else {
@@ -16,6 +16,7 @@ const User = new mongoose.Schema({
 })
 
 const Comment = new mongoose.Schema({
+    id: String,
     time: String,
     value: String,
     userName: String,

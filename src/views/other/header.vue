@@ -19,7 +19,7 @@
                 </li>
                 <li v-if="isLogin" class="li" style="float: right">
                     <el-dropdown style="width: 100%;height: 100%;" placement="top-end">
-                        <el-button style="width: 100%;height: 100%;font-size: 18px;color: white" type="text">lxx</el-button>
+                        <el-button style="width: 100%;height: 100%;font-size: 18px;color: white" type="text">{{ user.name }}</el-button>
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item>个人资料</el-dropdown-item>
                             <el-dropdown-item @click.native="clearUser">退出登录</el-dropdown-item>
@@ -43,10 +43,12 @@
 
 <script>
     import {Vue, Component} from 'vue-property-decorator'
+    import {Getter} from 'vuex-class'
     import JsCookie from 'js-cookie'
 
     @Component
     export default class HeaderNav extends Vue {
+        @Getter user
         headerInit = false
         show = false
         value = null
@@ -59,8 +61,7 @@
         }
 
         get isLogin(){
-            console.log(!!JsCookie.get('email'));
-            return !!JsCookie.get('email')
+            return this.$lo.size(this.user) !== 0
         }
 
         clearUser(){
@@ -73,12 +74,7 @@
         }
 
         get canIEdit() {
-            const cookie = JsCookie.get('email')
-            if (cookie) {
-                return !!this.$util.DecodeCookie(cookie)
-            } else {
-                return false
-            }
+            return this.user.email === 'zmsnlxx@163.com'
         }
 
         closeHeader() {

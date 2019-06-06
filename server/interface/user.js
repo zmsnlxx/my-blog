@@ -3,6 +3,7 @@ const express = require("express")
 const router = express.Router()
 const db = require("../db")
 const util = require('../util')
+const _ = require('lodash')
 
 // 注册接口
 router.post("/api/user/register", (req, res) => {
@@ -81,6 +82,21 @@ router.post("/api/user/login", (req, res) => {
             }
         }
     )
+})
+
+router.get('/api/user/info',async (req,res) => {
+    const user = await db.userInfo.findOne({email: req.query.cookie})
+    if(_.size(user) !== 0){
+        res.send({
+            code:0,
+            data:user
+        })
+    }else{
+        res.send({
+            code:1,
+            data:'获取用户信息失败'
+        })
+    }
 })
 
 module.exports = router

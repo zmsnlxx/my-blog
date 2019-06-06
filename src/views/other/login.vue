@@ -69,9 +69,9 @@
 
 <script>
     import {Vue, Component} from 'vue-property-decorator'
-    import TopNav from './TopNav'
-    
-    
+
+	import TopNav from './TopNav'
+
     @Component({components: {TopNav}})
     
     export default class LoginNav extends Vue {
@@ -130,8 +130,11 @@
                 this.loginShow = true
             }, 500)
         }
-        
-        login () {
+
+		/**
+		 *
+		 */
+		login () {
             this.$api.login(this.userForm).then(req => {
                 const {code, data} = req.data
                 if (code === 0) {
@@ -180,7 +183,8 @@
                 }
             })
         }
-    }
+
+	}
 </script>
 
 <style lang="less">

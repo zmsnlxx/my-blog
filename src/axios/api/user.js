@@ -9,8 +9,13 @@ const register = (params) => {
     return axios.post(`user/register`, params)
 }
 
+const getUserInfo = (params) => {
+    return axios.get('user/info',{params})
+}
+
 const user = {
     login,
     register,
+    getUserInfo,
 }
 export default user

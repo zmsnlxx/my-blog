@@ -9,6 +9,11 @@ function CodeCookie (str) {
     return strRtn
 }
 
+function setRandomId() {
+    return Date.now() + "" + Math.floor(Math.random() * 10000);
+}
+
 module.exports = {
-    CodeCookie
+    CodeCookie,
+    setRandomId
 }
