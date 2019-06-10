@@ -9,10 +9,17 @@
             </div>
             <div class="container" v-loading="loading">
                 <div v-if="_.isEmpty(data)">暂无评论!</div>
-                <commentContent v-else :body="data" @success="contentCommit"/>
+                <commentContent v-else :body="currentData" @success="contentCommit"/>
             </div>
-            <div>
-                <el-button @click.native="getMore">查看更多</el-button>
+            <div style="width: 100%;height: 300px" v-loading="isloading" v-show="isloading"></div>
+            <div v-if="isMore" style="width: 100%">
+                <el-button style="width: 80%;margin: 0 auto;display: block" @click.native="getMore">
+                    <el-icon class=""></el-icon>
+                    查看更多
+                </el-button>
+            </div>
+            <div v-else>
+                <h1 style="text-align: center">没有更多留言啦,靓仔快点来留言吧-。-</h1>
             </div>
         </el-card>
     </section>
@@ -32,6 +39,10 @@
         commentValue = null
         reply = ''
         data = []
+        currentData = []
+        isloading = false
+        length = 0
+        isMore = true
 
 
         mounted() {
@@ -39,16 +50,23 @@
         }
 
         getMore(){
-            this.loading = true
-            this.limit += 5
-            this.init()
+            this.isloading = true
+            setTimeout(() => {
+                this.limit += 5
+                if(this.limit > this.length){
+                    this.isMore = false
+                }else{
+                    this.currentData = this.data.slice(0,this.limit)
+                }
+                this.isloading = false
+            },1000)
         }
 
         async init() {
-            const params = {limit:this.limit}
-            const {data} = (await this.$api.getComment(params)).data
-            console.log(data);
-            this.data = this.$lo.reverse(this.$lo.clone(data))
+            const {data} = (await this.$api.getComment()).data
+            this.data = data
+            this.length = this.$lo.size(data)
+            this.currentData = this.data.slice(0,this.limit)
             setTimeout(() => {
                 this.loading = false
             }, 1000)

@@ -80,8 +80,6 @@ function getComment(){
 router.get("/api/comment/getComment", async (req, res) => {
     const data = await getComment()
     const sendData = _.cloneDeep(data).reverse()
-
-    console.log(data);
     if(sendData && !_.isEmpty(sendData)){
         res.send({
             code: 0,
