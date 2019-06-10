@@ -1,5 +1,5 @@
 <template>
-    <section class="article">
+    <section class="articleNav">
         <el-tabs class="score-header" v-model="firstTab" type="card">
             <el-tab-pane v-for="(item,index) in tabName" :key="`${item.label}_${index}`" :label="item.label" :name="item.name"/>
             <keep-alive>
@@ -17,7 +17,7 @@
     import TechnologyDiv from './Technology/index'
 
     @Component({components: {EmotionDiv, LifeDiv, SceneryDiv,TechnologyDiv}})
-    export default class article extends Vue {
+    export default class articleNav extends Vue {
         firstTab = 'TechnologyDiv'
         tabName = [
             {label: '技术汇总', name: 'TechnologyDiv', content: TechnologyDiv},
@@ -29,5 +29,7 @@
 </script>
 
 <style lang="less" scoped>
+    .articleNav{
 
+    }
 </style>

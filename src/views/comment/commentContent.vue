@@ -84,13 +84,17 @@
 <script>
 
     import {Vue, Component, Prop} from 'vue-property-decorator'
+    import {Getter} from 'vuex-class'
 
     @Component
     export default class comment extends Vue {
+        @Getter user
         reply = ''
         loading = true
 
         @Prop(Array)body
+        defaultUrl = 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3913721637,490556209&fm=27&gp=0.jpg'
+
 
 
         // 发送回复信息
@@ -99,8 +103,8 @@
             const params = {
                 time: this.moment().format('YYYY-MM-DD'),
                 value: `@${item.userName},${this.reply}`,
-                userName: window.localStorage.getItem('name') || 'lxx',
-                url: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
+                userName: this.user.name,
+                url: !!this.user.url ? this.user.url : this.defaultUrl,
                 os: this.Os,
                 browse: this.Browse,
                 isReply: false,
@@ -110,7 +114,6 @@
                     type: req.data.code === 200 ? 'success' : 'error',
                     message: req.data.data
                 })
-                console.log(this.$emit);
                 this.$emit('success', this.loading)
                 this.reply = null
             })
@@ -122,8 +125,8 @@
             const params = {
                 time: this.moment().format('YYYY-MM-DD'),
                 value: `@${i.userName},${this.reply}`,
-                userName: window.localStorage.getItem('name') || 'lxx',
-                url: 'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
+                userName: this.user.name,
+                url: !!this.user.url ? this.user.url : this.defaultUrl,
                 os: this.Os,
                 browse: this.Browse,
                 isReply: false,

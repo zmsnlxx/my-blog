@@ -21,7 +21,7 @@
                     <el-dropdown style="width: 100%;height: 100%;" placement="top-end">
                         <el-button style="width: 100%;height: 100%;font-size: 18px;color: white" type="text">{{ user.name }}</el-button>
                         <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item>个人资料</el-dropdown-item>
+                            <el-dropdown-item @click.native="$router.push({path:'/personal'})">个人资料</el-dropdown-item>
                             <el-dropdown-item @click.native="clearUser">退出登录</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>

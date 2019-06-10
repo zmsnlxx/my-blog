@@ -1,5 +1,5 @@
 <template>
-    <section class="article">
+    <section class="articleClass">
         <el-card class="box-card">
             <el-tabs v-model="activeName">
                 <el-tab-pane v-for="(item,index) in labelData" :key="`${item.label}_${index}`" :label="item.label" :name="item.name"/>
@@ -20,7 +20,7 @@
 
 
     @Component({components: {hottest, newest, most}})
-    export default class article extends Vue {
+    export default class articleClass extends Vue {
         labelData = [
             {label:'最热文章',name:'hottest',content:hottest},
             {label:'最新文章',name:'newest',content:newest},
@@ -32,7 +32,7 @@
 </script>
 
 <style lang="less" scoped>
-    .article {
+    .articleClass {
         margin-bottom: 20px;
     }
 </style>
