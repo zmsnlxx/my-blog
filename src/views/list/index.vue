@@ -28,6 +28,6 @@
     
     @Component({components:{AuthorNav,MakeComplaints,LatelyNav,ArticleNav}})
     export default class ListNav extends Vue {
-    
+
     }
 </script>

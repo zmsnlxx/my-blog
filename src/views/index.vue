@@ -38,35 +38,38 @@
                 </el-col>
             </el-row>
         </section>
-        <!--<div class="footer"></div>-->
     </section>
 </template>
 
-<script>
+<script lang="ts">
     import {Vue, Component} from 'vue-property-decorator'
-    import HeaderNav from './other/header'
-    import ListNav from "./list"
-    import jsCookie from 'js-cookie'
-    import { Action } from 'vuex-class'
+    import HeaderNav from './other/header.vue'
+    import ListNav from "./list/index.vue"
+    import * as jsCookie from 'js-cookie'
+    import {Action} from 'vuex-class'
 
 
     @Component({components: {HeaderNav, ListNav}})
 
     export default class Entrance extends Vue {
-        @Action setUserInfo
+        @Action setUserInfo: any;
 
-        show = false
-        listShow = false
+        show: boolean = false;
+        listShow: boolean = false;
+        email:string = '';
+        private $util: any;
+        private $api: any;
 
         async mounted() {
-            const cookie = this.$util.DecodeCookie(jsCookie.get('email'))
-            if (!!cookie) {
-                const {data} = await this.$api.getUserInfo({cookie})
-                if(data.code === 0){
+            if (jsCookie.get('email')) {
+                this.email = jsCookie.get('email') || '';
+                const cookie = this.$util.DecodeCookie(this.email);
+                const {data} = await this.$api.getUserInfo({cookie});
+                if (data.code === 0) {
                     this.setUserInfo(data.data)
                 }
             }
-            this.show = true
+            this.show = true;
             this.listShow = true
         }
     }
