@@ -48,17 +48,13 @@
     import * as jsCookie from 'js-cookie'
     import {Action} from 'vuex-class'
 
-
     @Component({components: {HeaderNav, ListNav}})
-
     export default class Entrance extends Vue {
         @Action setUserInfo: any;
 
         show: boolean = false;
         listShow: boolean = false;
-        email:string = '';
-        private $util: any;
-        private $api: any;
+        email: string = '';
 
         async mounted() {
             if (jsCookie.get('email')) {

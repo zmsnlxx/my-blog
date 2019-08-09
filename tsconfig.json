@@ -1,7 +1,7 @@
 { // 编译选项
   "compilerOptions": {
     // 编译输出目标 ES 版本
-    "target": "esnext",
+    "target": "es6",
     // 采用的模块系统
     "module": "esnext",
     // 以严格模式解析
@@ -35,7 +35,7 @@
       "@/*": ["src/*"]
     },
     // 编译过程中需要引入的库文件的列表
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost","es6"]
   },
   // ts 管理的文件
   "include": [
@@ -43,7 +43,8 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "tests/**/*.tsx",
+    "types/**.d.ts"
   ],
   // ts 排除的文件
   "exclude": ["node_modules"]
