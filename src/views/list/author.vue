@@ -1,33 +1,33 @@
 <template>
 	<section class="author">
 		<div class="user">
-			<img src="https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg" alt="头像加载失败">
+			<img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2522852806,4115374116&fm=26&gp=0.jpg" alt="头像加载失败">
 			<p class="name">lxx</p>
-			<p class="autograph">zmsnlxx</p>
-			<div class="add">
-				<div class="fabulous button">
-					<el-icon class="el-icon-star-off"></el-icon>
-					<span>243</span>
-				</div>
-				<div class="follow button">
-					<el-icon class="el-icon-plus"></el-icon>
-					<span>关注我</span>
-				</div>
-			</div>
-			<div class="desc">
-				<div class="desc_div notLast">
-					<p>184</p>
-					<p>粉丝数量</p>
-				</div>
-				<div class="desc_div notLast">
-					<p>203</p>
-					<p>今日PV</p>
-				</div>
-				<div class="desc_div">
-					<p>5</p>
-					<p>文章数量</p>
-				</div>
-			</div>
+			<p class="autograph">未来可期,少年还需要加油鸭！</p>
+<!--			<div class="add">-->
+<!--				<div class="fabulous button">-->
+<!--					<el-icon class="el-icon-star-off"></el-icon>-->
+<!--					<span>243</span>-->
+<!--				</div>-->
+<!--				<div class="follow button">-->
+<!--					<el-icon class="el-icon-plus"></el-icon>-->
+<!--					<span>关注我</span>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="desc">-->
+<!--				<div class="desc_div notLast">-->
+<!--					<p>184</p>-->
+<!--					<p>粉丝数量</p>-->
+<!--				</div>-->
+<!--				<div class="desc_div notLast">-->
+<!--					<p>203</p>-->
+<!--					<p>今日PV</p>-->
+<!--				</div>-->
+<!--				<div class="desc_div">-->
+<!--					<p>5</p>-->
+<!--					<p>文章数量</p>-->
+<!--				</div>-->
+<!--			</div>-->
 		</div>
 		
 	</section>
@@ -45,9 +45,10 @@
 	.author{
 		margin-bottom: 20px;
 		width: 100%;
-		height: 300px;
-		border-radius: 20px;
-		background-color: white;
+		height: 250px;
+		border-radius: 10px;
+		background-color: #475669;
+		box-shadow: 0 0 5px #999999;
 		.user{
 			padding-top: 20px;
 			height: 70%;

@@ -8,14 +8,6 @@
 		<lately-nav></lately-nav>
 		<!-- 最热文章/最新文章/点赞最多 -->
 		<article-nav></article-nav>
-		<el-card class="box-card">
-			<div slot="header" class="clearfix">
-				<span>待定模块</span>
-			</div>
-			<div v-for="o in 4" :key="o" class="text item">
-				{{'列表内容 ' + o }}
-			</div>
-		</el-card>
 	</section>
 </template>
 

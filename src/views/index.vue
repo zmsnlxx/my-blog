@@ -1,12 +1,15 @@
 <!-- views入口文件 -->
 <template>
-    <section class="entrance">
-        <!-- 头部 -->
-        <header-nav/>
+    <div class="entrance">
         <!-- 内容部分 -->
-        <section class="content">
+        <div class="container">
             <el-row :gutter="20">
                 <el-col :span="17">
+                    <keep-alive>
+                        <router-view class="main-content"/>
+                    </keep-alive>
+                </el-col>
+                <el-col :span="7">
                     <!--
                         transition：vue的动画标签，需要执行动画的内容使用transition包裹，
                         transition标签常用属性enter-active-class：进入的动画样式；
@@ -18,18 +21,6 @@
                     <transition
                             mode="out-in"
                             name="custom-classes-transition"
-                            enter-active-class="animated fadeInLeft"
-                            leave-active-class="animated bounceOutLeft"
-                    >
-                        <keep-alive v-show="show">
-                            <router-view class="main-content"/>
-                        </keep-alive>
-                    </transition>
-                </el-col>
-                <el-col :span="7">
-                    <transition
-                            mode="out-in"
-                            name="custom-classes-transition"
                             enter-active-class="animated fadeInRight"
                             leave-active-class="animated bounceOutRight"
                     >
@@ -37,22 +28,23 @@
                     </transition>
                 </el-col>
             </el-row>
-        </section>
-    </section>
+        </div>
+
+    </div>
 </template>
 
 <script lang="ts">
     import {Vue, Component} from 'vue-property-decorator'
-    import HeaderNav from './other/header.vue'
+
     import ListNav from "./list/index.vue"
     import * as jsCookie from 'js-cookie'
     import {Action} from 'vuex-class'
 
-    @Component({components: {HeaderNav, ListNav}})
+    @Component({components: {ListNav}})
     export default class Entrance extends Vue {
         @Action setUserInfo: any;
+        height = '1500px';
 
-        show: boolean = false;
         listShow: boolean = false;
         email: string = '';
 
@@ -65,26 +57,21 @@
                     this.setUserInfo(data.data)
                 }
             }
-            this.show = true;
-            this.listShow = true
+            setTimeout(() => {
+                this.listShow = true
+            },500)
         }
     }
 </script>
 <style lang="less" scoped>
     .entrance {
-        height: 100%;
-        width: 100%;
-
-        .content {
-            width: 80%;
-            margin: 20px auto;
-            /*margin-top: 20px;*/
-        }
-
-        .footer {
+        width: 85%;
+        margin: 0 auto;
+        padding-top: 70px;
+        .container {
+            box-sizing: border-box;
+            /*height: 100%;*/
             width: 100%;
-            height: 50px;
-            background-color: bisque;
         }
     }
 </style>

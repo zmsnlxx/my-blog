@@ -34,5 +34,6 @@
 <style lang="less" scoped>
     .articleClass {
         margin-bottom: 20px;
+
     }
 </style>

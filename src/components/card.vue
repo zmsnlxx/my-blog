@@ -1,6 +1,6 @@
 <template>
 	<section class="card">
-		<div class="test" v-for="(item,index) in data" :key="index">
+		<div class="test" v-for="(item,index) in data" :key="index" @click="jumpToArticle(item)">
 			<el-row :gutter="10" class="row">
 				<el-col :span="8" class="col">
 					<el-image v-if="index < 3" class="img" :src="item.url"></el-image>
@@ -28,6 +28,12 @@
     @Component
     export default class CardNav extends Vue {
         @Prop(Array) data
+
+		jumpToArticle(article){
+			console.log(article);
+			const id = article.id
+        	this.$router.push({path:'/details',query:{id}})
+		}
     }
 </script>
 

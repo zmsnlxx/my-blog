@@ -5,7 +5,7 @@
   color: white;
 }
 
-.el-textarea__inner{
+.el-textarea__inner {
   border: none;
 }
 
@@ -16,6 +16,7 @@
   padding: 10% 0 0;
   height: 0;
   line-height: 0;
+
   .img {
     width: 100%;
     position: absolute;
@@ -25,49 +26,65 @@
   }
 }
 
-.flex{
+.flex {
   display: flex;
   margin-bottom: 20px;
   padding-top: 10px;
   border-top: 1px solid #eeeeee;
-  .right{
+
+  .right {
     width: 90%;
     margin-left: 20px;
-    p{
+
+    p {
       margin: 0;
     }
-    .head{
+
+    .head {
       width: 100%;
       height: 75px;
       position: relative;
-      .top{
+
+      .top {
         margin-bottom: 10px;
         color: #37c6c0;
         font-size: 16px;
       }
-      .bottom{
+
+      .bottom {
         width: 100%;
         position: absolute;
         bottom: 0;
         color: #999999;
         font-size: 14px;
-        .floatRight{
+
+        .floatRight {
           float: right;
           padding: 0;
           color: red;
         }
       }
     }
-    .content{
+
+    .content {
       width: 100%;
       margin: 20px 0;
     }
   }
 }
 
-// 文本溢出类
+// 单行文本溢出
 .over-flow {
+  overflow: hidden; //超出的文本隐藏
+  text-overflow: ellipsis; //溢出用省略号显示
+  white-space: nowrap; //溢出不换行
+}
+
+// 多行文本溢出
+.more-overflow{
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  flex-direction: column;
 }

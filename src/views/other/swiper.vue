@@ -1,7 +1,7 @@
 <template>
 	<section class="swiper">
 		<el-carousel>
-			<el-carousel-item v-for="(item,index) in urls" :key="index">
+			<el-carousel-item v-for="(item,index) in urls" :key="index" @click.native="click(item)">
 				<img style="width: 100%;height: 100%;" :src="item" alt="图片加载失败">
 			</el-carousel-item>
 		</el-carousel>
@@ -23,6 +23,12 @@
       //     'https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg',
       //     'https://fuss10.elemecdn.com/2/11/6535bcfb26e4c79b48ddde44f4b6fjpeg.jpeg'
       // ]
+
+
+
+	  click(item){
+		  console.log(item);
+	  }
 
   }
 </script>
