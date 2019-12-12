@@ -1,20 +1,18 @@
 <template>
 	<section class="card">
 		<div class="test" v-for="(item,index) in data" :key="index" @click="jumpToArticle(item)">
-			<el-row :gutter="10" class="row">
-				<el-col :span="8" class="col">
-					<el-image v-if="index < 3" class="img" :src="item.url"></el-image>
-					<el-image v-else class="img" :src="item.url" lazy></el-image>
+			<div style="width: 100%;height: 30%;box-sizing: border-box;line-height: 50px;color: #37c6c0;font-size: 18px;font-weight: 500">{{ item.title }}</div>
+			<el-row :gutter="30" class="row">
+				<el-col :span="6" class="col">
+					<el-image v-if="index < 3" class="img" :src="item.img"></el-image>
+					<el-image v-else class="img" :src="item.img" lazy></el-image>
 				</el-col>
-				<el-col class="col" :span="16">
-					<h1 class="title">{{ item.title }}</h1>
-					<div class='text'>{{ item.text }}</div>
+				<el-col class="col" :span="18">
+					<div class='text'>{{ item.abstract }}</div>
 					<div class="desc">
-						<span class="desc_item"><el-icon class="el-icon-timer icon"></el-icon>{{ item.time }}</span>
-						<span class="desc_item"><el-icon class="el-icon-user-solid icon"></el-icon>{{ item.author }}</span>
-						<span class="desc_item"><el-icon class="el-icon-view icon"></el-icon>{{ item.record }}</span>
 						<span class="desc_item"><el-icon class="el-icon-star-off icon"></el-icon>{{ item.like }}</span>
-						<span class="desc_item right"><el-icon class="el-icon-s-fold icon"></el-icon>{{ item.class }}</span>
+						<span class="desc_item"><el-icon class="el-icon-view icon"></el-icon>{{ item.record }}</span>
+						<span class="desc_item"><el-icon class="el-icon-timer icon"></el-icon>{{ item.updateTime ? item.updateTime : item.createdTime }}</span>
 					</div>
 				</el-col>
 			</el-row>
@@ -29,9 +27,11 @@
     export default class CardNav extends Vue {
         @Prop(Array) data
 
-		jumpToArticle(article){
-			console.log(article);
-			const id = article.id
+
+		mounted() {
+			console.log(this.data);
+		}
+		jumpToArticle({id}){
         	this.$router.push({path:'/details',query:{id}})
 		}
     }
@@ -41,15 +41,16 @@
 	.card{
 		.test {
 			box-sizing: border-box;
-			padding: 15px 10px;
+			padding: 5px 20px 20px 20px;
 			margin-top: 20px;
 			width: 100%;
 			height: 200px;
-			background-color: whitesmoke;
+			background-color: white;
 			border-radius: 10px;
-			
+			box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+
 			.row {
-				height: 100%;
+				height: 70%;
 				
 				.col {
 					position: relative;
@@ -90,15 +91,12 @@
 							color: #999999;
 							display: inline-block;
 							margin-right: 20px;
+							float: right;
 							
 							.icon {
 								margin-right: 5px;
 							}
 							
-						}
-						.right {
-							position: absolute;
-							right: 0;
 						}
 						
 					}

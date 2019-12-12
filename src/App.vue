@@ -1,11 +1,8 @@
 <template>
-    <div id="app" :style="{height}">
+    <div id="app">
         <header-nav class="header"/>
-        <vue-particles color="#FF6600" :particleOpacity="0.7" :particlesNumber="80" shapeType="circle" :particleSize="4"
-                       linesColor="#FF6600" :linesWidth="1" :lineLinked="true" :lineOpacity="0.4" :linesDistance="150"
-                       :moveSpeed="3" :hoverEffect="true" hoverMode="grab" :clickEffect="true" clickMode="push"
-                       class="particles-js"/>
-        <router-view id="a"/>
+        <router-view style="padding-bottom: 100px"/>
+        <el-footer style="background-color: #475669;text-align: center;color: white;line-height: 60px">Copyright© 2019-2020 版权所有 zmsnlxx 豫ICP备19042595号-1</el-footer>
     </div>
 </template>
 
@@ -14,40 +11,30 @@
     import HeaderNav from './views/other/header.vue'
 
     @Component({components: {HeaderNav}})
-    export default class App extends Vue {
-        height: string = '1500px';
-
-        mounted() {
-            setTimeout(() => {
-                const container: any = document.getElementById('a');
-                this.height = container.offsetHeight + 'px';
-            }, 1000)
-        }
-    }
+    export default class App extends Vue {}
 </script>
 
 <style lang="less">
     @import 'assets/css/common.less';
 
     html, body, #app {
-        margin: 0;
-        height: 100%;
+        width: 100%;
+        min-height: 1200px;
+        margin: 0 auto;
         position: relative;
         background-color: whitesmoke;
-
         .header {
             width: 100%;
             position: fixed;
             top: 0;
             left: 0;
         }
-
-        .particles-js {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .el-footer{
             width: 100%;
-            height: 100%;
+            position: absolute;
+            left: 0;
+            bottom: 0;
         }
+
     }
 </style>

@@ -8,7 +8,7 @@ import {Message} from 'element-ui';
 
 /*创建axios实例对象*/
 const ajax = axios.create({
-    baseURL: '',
+    baseURL: '/api',
     timeout: 30000,
 });
 /*请求拦截器（请求之前的操作）*/
@@ -22,7 +22,7 @@ ajax.interceptors.request.use(req => {
     });
 /*请求之后的操作*/
 ajax.interceptors.response.use(res => {
-    return res;
+    return res.data;
 }, err => {
     Message.error(err);
 });

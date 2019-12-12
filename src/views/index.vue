@@ -35,28 +35,14 @@
 
 <script lang="ts">
     import {Vue, Component} from 'vue-property-decorator'
-
     import ListNav from "./list/index.vue"
-    import * as jsCookie from 'js-cookie'
-    import {Action} from 'vuex-class'
 
     @Component({components: {ListNav}})
     export default class Entrance extends Vue {
-        @Action setUserInfo: any;
-        height = '1500px';
-
         listShow: boolean = false;
         email: string = '';
 
         async mounted() {
-            if (jsCookie.get('email')) {
-                this.email = jsCookie.get('email') || '';
-                const cookie = this.$util.DecodeCookie(this.email);
-                const {data} = await this.$api.getUserInfo({cookie});
-                if (data.code === 0) {
-                    this.setUserInfo(data.data)
-                }
-            }
             setTimeout(() => {
                 this.listShow = true
             },500)

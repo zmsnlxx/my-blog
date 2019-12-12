@@ -1,46 +1,53 @@
 <template>
-    <section class="weather">
-        <div class="content" :class="weatherClass"></div>
-    </section>
+    <div class="weather">
+        <iframe width="200" scrolling="no" height="55" frameborder="0" allowtransparency="true"
+                src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&num=1"></iframe>
+        <p style="margin: 0;font-size: 12px">
+            <span style="display: inline-block;margin-right: 10px">{{ day }}</span>
+            <span>{{ time }}</span>
+        </p>
+    </div>
 </template>
 
 <script lang="ts">
-    import {Vue, Component, Watch} from 'vue-property-decorator'
+    import {Vue, Component} from 'vue-property-decorator'
 
     @Component
-
     export default class weather extends Vue {
-        weatherClass: string = 'sunny';
-        index: number = 0;
+        time: string = ''
+        date: any = new Date()
+        timer: any
+        day: string = ''
 
         mounted() {
-            setInterval((): void => {
-                if (this.index < 4) {
-                    this.index++;
-                }else{
-                    this.index = 0;
+            const that = this
+            this.timer = setInterval(function () {
+                that.date = new Date()
+                const year = that.date.getFullYear()
+                let month = that.date.getMonth() + 1
+                let strDate = that.date.getDate()
+                const hour = that.date.getHours()
+                const minutes = that.date.getMinutes()
+                let seconds = that.date.getSeconds()
+                if (month >= 1 && month <= 9) {
+                    month = "0" + month
                 }
-            }, 2000)
+                if (strDate >= 0 && strDate <= 9) {
+                    strDate = "0" + strDate
+                }
+                if (seconds >= 0 && seconds <= 9) {
+                    seconds = "0" + seconds
+                }
+                that.day = `${year}-${month}-${strDate}`
+                that.time = `${hour}:${minutes}:${seconds}`
+            }, 1000)
         }
 
-        @Watch('index') onChangeIndex(val: number): void {
-            switch (val) {
-                case 0:
-                    this.weatherClass = 'sunny';
-                    break;
-                case 1:
-                    this.weatherClass = "cloudy";
-                    break;
-                case 2:
-                    this.weatherClass = "rainy";
-                    break;
-                case 3:
-                    this.weatherClass = "snowy";
-                    break;
+        beforeDestroy() {
+            if (this.timer) {
+                clearInterval(this.timer)//在vue实例销毁钱，清除定时器
             }
         }
-
-
     }
 </script>
 
@@ -48,206 +55,10 @@
     .weather {
         width: 100%;
         height: 100%;
-
-        .content {
-            position: relative;
-            display: inline-block;
-            width: 100%;
-            height: 100%;
-            background: #23b7e5;
-            border-radius: 8px;
-        }
-
-        .sunny:before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 75%;
-            transform: translate(-50%, -50%);
-            width: 30px;
-            height: 30px;
-            background: #F6D963;
-            border-radius: 50%;
-            box-shadow: 0 0 20px #ff0;
-            z-index: 99;
-        }
-
-        .sunny:after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 75%;
-            margin: -45px 0 0 -45px;
-            width: 90px;
-            height: 90px;
-            background: #FFEB3B;
-            clip-path: polygon(50% 0%,
-            65.43% 25%,
-            93.3% 25%,
-            78.87% 50%,
-            93.3% 75%,
-            64.43% 75%,
-            50% 100%,
-            35.57% 75%,
-            6.7% 75%,
-            21.13% 50%,
-            6.7% 25%,
-            35.57% 25%);
-            -webkit-clip-path: polygon(/*兼容safari*/
-                    50% 0%,
-                    65.43% 25%,
-                    93.3% 25%,
-                    78.87% 50%,
-                    93.3% 75%,
-                    64.43% 75%,
-                    50% 100%,
-                    35.57% 75%,
-                    6.7% 75%,
-                    21.13% 50%,
-                    6.7% 25%,
-                    35.57% 25%);
-            z-index: 1;
-            animation: sunScale 2s linear infinite;
-        }
-
-        @keyframes sunScale {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        .cloudy:before,
-        .rainy:before,
-        .snowy:before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 36px;
-            height: 36px;
-            background: #fff;
-            border-radius: 50%;
-            box-shadow:
-                    #fff 22px -15px 0 6px,
-                    #fff 57px -6px 0 2px,
-                    #fff 87px 4px 0 -4px,
-                    #fff 33px 6px 0 6px,
-                    #fff 61px 6px 0 2px,
-                    #ccc 29px -23px 0 6px,
-                    #ccc 64px -14px 0 2px,
-                    #ccc 94px -4px 0 -4px;
-            z-index: 2;
-        }
-        .cloudy:before {
-            animation: cloudMove 2s linear infinite;
-        }
-        @keyframes cloudMove {
-            0% {
-                transform: translate(-50%, -50%);
-            }
-            50% {
-                transform: translate(-50%, -60%);
-            }
-            100% {
-                transform: translate(-50%, -50%);
-            }
-        }
-
-        .rainy:after {
-            content: "";
-            position: absolute;
-            top:50%;
-            left: 50%;
-            width: 4px;
-            height: 14px;
-            background: #fff;
-            border-radius: 2px;
-            box-shadow:
-                    #fff 25px -10px 0,
-                    #fff 50px 0 0,
-                    #fff 75px -10px 0,
-                    #fff 0 25px 0,
-                    #fff 25px 15px 0,
-                    #fff 50px 25px 0,
-                    #fff 75px 15px 0,
-                    #fff 0 50px 0,
-                    #fff 25px 40px 0,
-                    #fff 50px 50px 0,
-                    #fff 75px 40px 0;
-            animation: rainDrop 2s linear infinite;
-        }
-
-        @keyframes rainDrop {
-            0% {
-                transform: translate(0, 0) rotate(10deg);
-            }
-            100% {
-                transform: translate(-4px, 24px) rotate(10deg);
-                box-shadow:
-                        #fff 25px -10px 0,
-                        #fff 50px 0 0,
-                        #fff 75px -10px 0,
-                        #fff 0 25px 0,
-                        #fff 25px 15px 0,
-                        #fff 50px 25px 0,
-                        #fff 75px 15px 0,
-                        rgba(255, 255, 255, 0) 0 50px 0,
-                        rgba(255, 255, 255, 0) 25px 40px 0,
-                        rgba(255, 255, 255, 0) 50px 50px 0,
-                        rgba(255, 255, 255, 0) 75px 40px 0;
-            }
-        }
-
-        .snowy:after {
-            content: "";
-            position: absolute;
-            top:50%;
-            left: 50%;
-            width: 8px;
-            height: 8px;
-            background: #fff;
-            border-radius: 50%;
-            box-shadow:
-                    #fff 25px -10px 0,
-                    #fff 50px 0 0,
-                    #fff 75px -10px 0,
-                    #fff 0 25px 0,
-                    #fff 25px 15px 0,
-                    #fff 50px 25px 0,
-                    #fff 75px 15px 0,
-                    #fff 0 50px 0,
-                    #fff 25px 40px 0,
-                    #fff 50px 50px 0,
-                    #fff 75px 40px 0;
-            animation: snowDrop 2s linear infinite;
-        }
-        @keyframes snowDrop {
-            0% {
-                transform: translateY(0);
-            }
-            100% {
-                transform: translateY(25px);
-                box-shadow:
-                        #fff 25px -10px 0,
-                        #fff 50px 0 0,
-                        #fff 75px -10px 0,
-                        #fff 0 25px 0,
-                        #fff 25px 15px 0,
-                        #fff 50px 25px 0,
-                        #fff 75px 15px 0,
-                        rgba(255, 255, 255, 0) 0 50px 0,
-                        rgba(255, 255, 255, 0) 25px 40px 0,
-                        rgba(255, 255, 255, 0) 50px 50px 0,
-                        rgba(255, 255, 255, 0) 75px 40px 0;
-            }
-        }
+        background-image: url("https://img-blog.csdn.net/20180619095727703?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0l0Q2h1YW5neWk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70");
+        background-size: 100% 100%;
+        padding: 30px 20px 0 60px;
+        box-sizing: border-box;
     }
 
 </style>

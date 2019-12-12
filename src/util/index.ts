@@ -1,5 +1,7 @@
 import moment from 'moment';
 import _ from 'lodash';
+import {Message} from 'element-ui';
+
 
 
 /**
@@ -18,9 +20,21 @@ export const DecodeCookie = (str: string) => {
     }
     return strRtn;
 };
+const checkResp = (resp: any) => {
+    console.log(resp);
+    if (resp && (resp.code === 0 || resp.code === 1)) {
+        if (resp.data !== null) {
+            return resp.data;
+        }
+        return resp;
+    }
+    Message.error(resp.data);
+    return Promise.reject(resp);
+};
 
 export const util = {
     DecodeCookie,
+    checkResp
 };
 
 export default {

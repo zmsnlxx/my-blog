@@ -1,17 +1,20 @@
 import axios from '../axios';
 
-// 获取留言
-const getArticle = (): object => {
-    return axios.get(`/art/article/getArticle`);
+// 获取文章
+const getArticle = (): any => {
+    return axios.get(`article/getAllArticle`);
 };
-// // 发表留言
-// const sendComment = (params: any): object => {
-//     return axios.post(`${utilUrl}/sendComment`, params);
-// };
+
+// 获取指定文章详情
+const getArticleDetails = (params: {id: any}) => {
+    return axios.get(`article/details`,{params});
+};
+
+//
 
 const article = {
     getArticle,
-    // sendComment,
+    getArticleDetails
 };
 export default article;
 

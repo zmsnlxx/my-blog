@@ -2,12 +2,13 @@
 	<section class="home">
 		<!-- 轮播图模块 -->
 		<SwiperNav class="swiper"></SwiperNav>
+		<CardNav :data="articleData"></CardNav>
 		<!--	分类展示模块	-->
-		<classNav class="classNav"></classNav>
+<!--		<classNav class="classNav"></classNav>-->
 		<!--	特别推荐模块	-->
-		<recommend class="recommend"></recommend>
+<!--		<recommend class="recommend"></recommend>-->
 		<!-- 最新文章模块 -->
-		<newsNav></newsNav>
+<!--		<newsNav></newsNav>-->
 	</section>
 </template>
 
@@ -23,11 +24,26 @@
 
 	@Component({components: {SwiperNav,recommend,classNav,newsNav}})
     export default class HomeNav extends Vue {
+		articleData: any = []
 
+
+		async mounted() {
+			this.articleData = await this.getArticle().then((req: Types.InterfaceData) => this.$util.checkResp(req))
+		}
+
+		getArticle() {
+			return this.$api.getArticle();
+		}
     }
 </script>
 <style lang="less">
 	.home{
 		height: 100%;
+		.div{
+			width: 50%;
+			height: 500px;
+			background-color: red;
+			margin-top: 10px;
+		}
 	}
 </style>

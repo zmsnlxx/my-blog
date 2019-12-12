@@ -9,13 +9,13 @@
         </div>
         <div class="right">
             <weatherNav class="weather"></weatherNav>
-            <div class="other"></div>
+            <div class="other over-flow"></div>
         </div>
     </section>
 </template>
 
 <script lang="ts">
-    import {Vue, Component, Prop} from 'vue-property-decorator'
+    import {Vue, Component} from 'vue-property-decorator'
     import weatherNav from './weather.vue';
 
     @Component({components: {weatherNav}})
@@ -59,11 +59,17 @@
             }
 
             .other {
-                background-color: black;
+                background-image: url("http://jxhx2.yangqq.com/skin/jxhx/images/2.jpg");
+                background-size: 100% 100%;
                 width: 100%;
                 height: 48%;
                 border-radius: 10px;
                 box-shadow: 0 0 10px #999999;
+                opacity: 0.7;
+                text-align: center;
+                padding: 20px;
+                box-sizing: border-box;
+                color: white;
             }
         }
 
