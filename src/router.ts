@@ -9,7 +9,6 @@ Vue.use(Router);
 
 export default new Router({
     mode: 'history',
-    base: process.env.NODE_ENV === 'production' ? '/blog' : '/',
     routes: [
         {
             path: '/', component: entrance, redirect: {name: 'home'}, children: [
