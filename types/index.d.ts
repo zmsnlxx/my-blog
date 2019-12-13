@@ -8,6 +8,39 @@ export interface InterfaceData {
     data: any;
 }
 
+export interface ArticleData {
+    title: string;
+    img: string | any;
+    content: string;
+    tagName: any;
+    tagId: any;
+    categoryName: string;
+    categoryId: string;
+    abstract: string;
+    contentMD: string;
+    updateTime?: string;
+    createdTime?: string;
+    id: any;
+}
+
+export interface InterfaceData {
+    code: number;
+    data: any;
+}
+
+export interface TagsData {
+    id: string;
+    name: string;
+    type: string;
+    __v?: any;
+    _id?: string;
+}
+
+export interface InterfaceData {
+    code: number;
+    data: any;
+}
+
 export interface HeaderName {
     label: string;
     jump: string;

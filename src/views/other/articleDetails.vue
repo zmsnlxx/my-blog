@@ -4,7 +4,7 @@
             <div slot="header" class="clearfix">
                 <h1>{{ articleInfo.title }}</h1>
                 <span class="desc">最后编辑时间：{{ articleInfo.updateTime ? articleInfo.updateTime : articleInfo.createdTime}}</span>
-                <span class="desc">{{ articleInfo.tags }}</span>
+                <span class="desc">{{ articleInfo.categoryName }}</span>
             </div>
             <div class="card-body">
                 <div v-html="articleInfo.content"></div>

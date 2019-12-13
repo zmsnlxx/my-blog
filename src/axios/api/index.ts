@@ -1,6 +1,7 @@
 import user from './user';
 import comment from './comment';
 import article from './article';
+import tags from './tags';
 
 
 const apiList = {
@@ -8,5 +9,6 @@ const apiList = {
     ...user,
     ...comment,
     ...article,
+    ...tags
 };
 export default apiList;

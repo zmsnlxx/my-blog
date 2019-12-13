@@ -53,7 +53,7 @@
     .entrance {
         width: 85%;
         margin: 0 auto;
-        padding-top: 70px;
+        padding-top: 80px;
         .container {
             box-sizing: border-box;
             /*height: 100%;*/

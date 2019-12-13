@@ -1,7 +1,7 @@
 <template>
 	<section class="card">
 		<div class="test" v-for="(item,index) in data" :key="index" @click="jumpToArticle(item)">
-			<div style="width: 100%;height: 30%;box-sizing: border-box;line-height: 50px;color: #37c6c0;font-size: 18px;font-weight: 500">{{ item.title }}</div>
+			<div style="width: 100%;height: 30%;box-sizing: border-box;line-height: 50px;color: #37c6c0;font-size: 18px;font-weight: 500">{{ '【' + item.categoryName + '】' }}{{ item.title }}</div>
 			<el-row :gutter="30" class="row">
 				<el-col :span="6" class="col">
 					<el-image v-if="index < 3" class="img" :src="item.img"></el-image>
@@ -10,8 +10,8 @@
 				<el-col class="col" :span="18">
 					<div class='text'>{{ item.abstract }}</div>
 					<div class="desc">
-						<span class="desc_item"><el-icon class="el-icon-star-off icon"></el-icon>{{ item.like }}</span>
-						<span class="desc_item"><el-icon class="el-icon-view icon"></el-icon>{{ item.record }}</span>
+						<span class="desc_item"><el-icon class="el-icon-star-off icon"></el-icon>{{ item.fabulousNum }}</span>
+						<span class="desc_item"><el-icon class="el-icon-view icon"></el-icon>{{ item.visitNum }}</span>
 						<span class="desc_item"><el-icon class="el-icon-timer icon"></el-icon>{{ item.updateTime ? item.updateTime : item.createdTime }}</span>
 					</div>
 				</el-col>
@@ -39,10 +39,11 @@
 
 <style lang="less" scoped>
 	.card{
+		/*margin-top: 20px;*/
 		.test {
 			box-sizing: border-box;
 			padding: 5px 20px 20px 20px;
-			margin-top: 20px;
+			margin-bottom: 20px;
 			width: 100%;
 			height: 200px;
 			background-color: white;

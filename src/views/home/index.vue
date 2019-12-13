@@ -2,7 +2,7 @@
 	<section class="home">
 		<!-- 轮播图模块 -->
 		<SwiperNav class="swiper"></SwiperNav>
-		<CardNav :data="articleData"></CardNav>
+		<CardNav style="margin-top: 20px" :data="articleData"></CardNav>
 		<!--	分类展示模块	-->
 <!--		<classNav class="classNav"></classNav>-->
 		<!--	特别推荐模块	-->

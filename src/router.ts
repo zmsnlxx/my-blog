@@ -17,6 +17,7 @@ export default new Router({
                 {path: '/article', name: 'article', component: () => import('./views/articleNav/index.vue')},
                 {path: '/edit', name: 'edit', component: () => import('./views/edit/index.vue')},
                 {path: '/newArticle', name: 'newArticle', component: () => import('./views/new/index.vue')},
+                {path: '/tagArticle', name: 'article@tag', component: () => import('./views/home/tagArticle/index.vue')},
             ],
         },
         {path: '/login', component: login},
