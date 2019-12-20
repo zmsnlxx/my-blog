@@ -1,2 +1,2 @@
-// user
-export const SET_USER_INFO = 'SET_USER_INFO'
+// 获取文章数据
+export const GET_ARTICLE_INFO: string = 'GET_ARTICLE_INFO';

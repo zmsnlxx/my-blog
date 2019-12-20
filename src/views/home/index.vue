@@ -20,8 +20,6 @@
 	import newsNav from './news/index.vue';
 
 
-
-
 	@Component({components: {SwiperNav,recommend,classNav,newsNav}})
     export default class HomeNav extends Vue {
 		articleData: any = []
@@ -29,6 +27,7 @@
 
 		async mounted() {
 			this.articleData = await this.getArticle().then((req: Types.InterfaceData) => this.$util.checkResp(req))
+			window.localStorage.setItem('articleData', JSON.stringify(this.articleData))
 		}
 
 		getArticle() {

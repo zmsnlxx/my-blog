@@ -15,10 +15,16 @@ const getTagArticle = (params: {id: string}) => {
     return axios.get(`article/getTagArticle`, {params});
 }
 
+// 更新文章
+const updateArticle = (params: any) => {
+    return axios.post(`article/updateArticle`, params);
+};
+
 const article = {
     getArticle,
     getArticleDetails,
-    getTagArticle
+    getTagArticle,
+    updateArticle
 };
 export default article;
 

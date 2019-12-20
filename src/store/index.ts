@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import vuex from 'vuex';
-import user from './modules/user';
+import article from './modules/article';
 
 
 Vue.use(vuex);
@@ -10,13 +10,9 @@ export default new vuex.Store({
 // 为了解决以上问题，Vuex 允许我们将 store 分割成模块（module）。
 // 每个模块拥有自己的 state、mutation、action、getter、甚至是嵌套子模块——从上至下进行同样方式的分割：
     modules: {
-        user,
+        article
     },
     getters: {
-        // data: state => state.data.data,
-        user: (state: any): any => state.user.user,
-        // modular: state => state.data.data[0],
-        // function:state => state.data.data[1],
-        // shoppingData: state => state.data.shoppingData.data.productList,
+        articleInfo: (state: any): any => state.article.articleInfo
     },
 });
