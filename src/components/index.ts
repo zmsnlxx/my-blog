@@ -2,7 +2,7 @@ import CardNav from './card.vue';
 import LabelNav from './label.vue';
 import ListNav from './list.vue';
 import SmallLabel from './Small-label.vue';
-import CommentNav from './comment.vue';
+import commentList from './commentList.vue';
 
 
 export default {
@@ -11,7 +11,7 @@ export default {
         Vue.component('LabelNav', LabelNav);
         Vue.component('ListNav', ListNav);
         Vue.component('SmallLabel', SmallLabel);
-        Vue.component('CommentNav', CommentNav);
+        Vue.component('commentList', commentList);
     },
 };
 

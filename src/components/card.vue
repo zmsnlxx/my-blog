@@ -11,7 +11,7 @@
 					<div class='text'>{{ item.abstract }}</div>
 					<div class="desc">
 						<span class="desc_item"><el-icon class="el-icon-star-off icon"></el-icon>{{ item.fabulousNum }}</span>
-						<span class="desc_item"><el-icon class="el-icon-view icon"></el-icon>{{ item.visitNum }}</span>
+						<span class="desc_item"><el-icon class="el-icon-view icon"></el-icon>{{ _.size(item.commentData) }}</span>
 						<span class="desc_item"><el-icon class="el-icon-timer icon"></el-icon>{{ item.updateTime ? item.updateTime : item.createdTime }}</span>
 					</div>
 				</el-col>
@@ -27,10 +27,6 @@
     export default class CardNav extends Vue {
         @Prop(Array) data
 
-
-		mounted() {
-			console.log(this.data);
-		}
 		jumpToArticle({id}){
         	this.$router.push({path:'/details',query:{id}})
 		}

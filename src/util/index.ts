@@ -6,7 +6,7 @@ import {Message} from 'element-ui';
 /**
  * 获取设备操作系统
  */
-export const getOS = () => {
+const getOS = () => {
     const userAgent = window.navigator.userAgent;
     const platform = window.navigator.platform;
     const macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'];
@@ -28,13 +28,43 @@ export const getOS = () => {
     return os;
 };
 
+const getBrowse = () => {
+    const browser: any = {};
+    const userAgent = navigator.userAgent.toLowerCase();
+    let s;
+    (s = userAgent.match(/msie ([\d.]+)/)) ? browser.ie = s[1] : (s = userAgent.match(/firefox\/([\d.]+)/)) ? browser.firefox = s[1] : (s = userAgent.match(/chrome\/([\d.]+)/)) ? browser.chrome = s[1] : (s = userAgent.match(/opera.([\d.]+)/)) ? browser.opera = s[1] : (s = userAgent.match(/version\/([\d.]+).*safari/)) ? browser.safari = s[1] : 0;
+    let version = "";
+    if (browser.ie) {
+        version = 'IE ' + browser.ie;
+    } else {
+        if (browser.firefox) {
+            version = 'firefox ' + browser.firefox;
+        } else {
+            if (browser.chrome) {
+                version = 'chrome ' + browser.chrome;
+            } else {
+                if (browser.opera) {
+                    version = 'opera ' + browser.opera;
+                } else {
+                    if (browser.safari) {
+                        version = 'safari ' + browser.safari;
+                    } else {
+                        version = '未知浏览器';
+                    }
+                }
+            }
+        }
+    }
+    return version;
+}
+
 /**
  * cookie解码函数
  * @param str
  * @returns {string}
  * @constructor
  */
-export const DecodeCookie = (str: string) => {
+const DecodeCookie = (str: string) => {
     let strRtn: string = '';
     let strArr: any = str.split('a');
     for (let i = _.size(strArr) - 1; i >= 0; i--) {
@@ -92,7 +122,7 @@ const isType = (obj: any, type: any) => {
  * @param  {[type]} parent object 需要进行克隆的对象
  * @return {[type]}        深克隆后的对象
  */
-export const cloneDeep = (parent: any) => {
+const cloneDeep = (parent: any) => {
     const parents:any = [];
     const children:any = [];
 
@@ -142,6 +172,7 @@ export const cloneDeep = (parent: any) => {
 
 export const util = {
     getOS,
+    getBrowse,
     DecodeCookie,
     checkResp,
     cloneDeep
