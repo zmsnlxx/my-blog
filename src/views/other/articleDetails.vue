@@ -30,32 +30,45 @@
         </el-card>
         <el-card class="card">
             <p style="margin: 0">发表评论（{{ _.size(currentArticleInfo.commentData) }}条评论）</p>
-            <div v-show="!isReply" style="margin-top: 20px;padding: 0 20px">
+            <div v-show="!isReply && !isCommentReply" style="margin-top: 20px;padding: 0 20px">
                 <el-input type="textarea" :rows="2"
                           placeholder="少侠写点什么呢。。。"
                           v-model="textarea"></el-input>
-                <el-button type="primary" style="display: inline-block;float: right;margin-top: 20px" @click="submitComment(false)">发表评论</el-button>
-                <el-form :model="userForm" v-show="isShowInput" style="width: 40%;margin-top: 40px" :rules="rules" ref="userForm" >
-                    <el-form-item label="昵称（必填）" prop="name">
-                        <el-input type="text" v-model="userForm.name" placeholder="请输入昵称"></el-input>
-                    </el-form-item>
-                    <el-form-item label="邮箱（必填）" prop="email">
-                        <el-input type="email" v-model="userForm.email" placeholder="请输入邮箱"></el-input>
-                    </el-form-item>
-                </el-form>
+                <el-button type="primary" style="display: inline-block;float: right;margin-top: 20px" @click="submitComment(0)">发表评论</el-button>
             </div>
             <commentList
                     v-if="_.size(currentArticleInfo.commentData) > 0"
                     :commentData="currentArticleInfo.commentData"
                     :commentIndex="commentIndex"
                     :isReply="isReply"
+                    :isCommentReply="isCommentReply"
                     :userId="_.get(userInfo, 'userId') || ''"
+                    :commentReplyIndex="commentReplyIndex"
                     @changeReply="changeReply"
                     @goReply="goReply"
                     @reply="reply"
+                    @login="goLogin"
+                    @goCurrentReply="goCurrentReply"
             ></commentList>
             <div style="margin-top: 20px" v-else>暂无评论，快来写点什么吧！</div>
         </el-card>
+        <!--    登录弹框     -->
+        <el-dialog title="请登录！"
+                   :visible.sync="dialogVisible"
+                   width="50%">
+            <el-form :model="userForm" :rules="rules" ref="userForm" >
+                <el-form-item label="昵称（必填）" prop="name">
+                    <el-input type="text" v-model="userForm.name" placeholder="请输入昵称"></el-input>
+                </el-form-item>
+                <el-form-item label="邮箱（必填）" prop="email">
+                    <el-input type="email" v-model="userForm.email" placeholder="请输入邮箱"></el-input>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="login">确 定</el-button>
+            </span>
+        </el-dialog>
     </section>
 </template>
 
@@ -79,14 +92,16 @@
         relevantArticle: any = [];
         textarea: string = '';
         userInfo: any = {};
-        isShowInput: boolean = false;
+        dialogVisible: boolean = false;  // 登录弹框开关
         userForm: any = {
             name: '',
             email: '',
         };
         isReply: boolean = false;
+        isCommentReply: boolean = false;
         commentIndex: number = 0;
-        rules: any = {
+        commentReplyIndex: number = 0;
+        rules: any = { // 校验规则
             name: [
                     { required: true, message: '请输入昵称', trigger: 'blur' },
                     { min: 2, max: 6, message: '长度在 2 到 6 个字符', trigger: 'blur' }
@@ -129,6 +144,28 @@
             }
         };
 
+        goLogin() {
+            this.dialogVisible = true;
+        }
+
+        login() {
+            const userForm: any = this.$refs['userForm'];
+            userForm.validate(async (valid: any) => {
+                if (valid) {
+                    this.userForm.url = this.urls[Math.floor(Math.random() * this.urls.length)]
+                    this.userForm.userId = Date.now() + "" + Math.floor(Math.random() * 10000);
+                    // 校验成功把用户信息存入本地，关闭注册表单,调用更新评论接口
+                    window.localStorage.setItem('userInfo', JSON.stringify(this.userForm));
+                    this.$message.success('登录成功！')
+                    this.userInfo = this.userForm;
+                    this.textarea = '';
+                    this.dialogVisible = false;
+                } else {
+                    this.$message.warning('请校验昵称和邮箱！')
+                }
+            })
+        }
+
         // 处理文章详情
         async getArticleDetails() {
             const isFabulous: any = window.localStorage.getItem('isFabulous');
@@ -151,22 +188,30 @@
 
         // 点击回复评论
         goReply(params: any) {
-            const {isReply, index} = params
+            const {isReply, index, isCommentReply} = params
             this.isReply = isReply;
+            this.isCommentReply = isCommentReply
             this.commentIndex = index;
-            console.log(this.commentIndex);
+        }
+
+        goCurrentReply(params: any) {
+            const {isCommentReply, index, isReply} = params
+            this.isCommentReply = isCommentReply;
+            this.isReply = isReply
+            this.commentReplyIndex = index;
         }
 
         // 发表回复评论
         async reply(params: any) {
-            const {reply, textarea} = params;
+            const {commentId, textarea, reply} = params;
             this.textarea = textarea
-            await this.submitComment(reply)
+            await this.submitComment(commentId, reply)
         }
 
         // 取消回复
         changeReply() {
             this.isReply = false;
+            this.isCommentReply = false;
         }
 
         // 获取指定标签的文章
@@ -180,63 +225,33 @@
         };
 
         // 评论
-        async submitComment(reply: any) {
+        async submitComment(commentId: string | number, reply: string) {
             // 判断本地是否存储有用户数据，如果没有打开注册表单并且校验用户信息
             if (this.$lo.isEmpty(this.userInfo)) {
-                this.isShowInput = true;
-                const userForm: any = this.$refs['userForm'];
-                userForm.validate(async (valid: any) => {
-                    if (valid) {
-                        if (this.textarea === '') {
-                            this.$message.warning('请输入评论内容！')
-                            return
-                        }
-                        this.userForm.url = this.urls[Math.floor(Math.random() * this.urls.length)]
-                        this.userForm.userId = Date.now() + "" + Math.floor(Math.random() * 10000);
-                        // 校验成功把用户信息存入本地，关闭注册表单,调用更新评论接口
-                        window.localStorage.setItem('userInfo', JSON.stringify(this.userForm));
-                        this.userInfo = this.userForm;
-                        this.isShowInput = false;
-                        const commentParams: any = {
-                            comment: this.textarea,
-                            time: moment().format('YYYY-MM-DD HH:mm'),
-                            getOS: this.$util.getOS(),
-                            getBrowse: this.$util.getBrowse(),
-                        }
-                        if (reply) {
-                            commentParams['reply'] = reply;
-                        }
-                        const {code, data} = await this.$api.updateArticle({
-                            id: this.articleId,
-                            comment: Object.assign(commentParams, this.userForm)
-                        });
-                        if (code === 0) {
-                            this.$message.success('评论成功！')
-                            this.currentArticleInfo = this.$lo.find(data, (item: any) => item.id === this.articleId);
-                        }
-                        this.textarea = '';
-                    } else {
-                        this.$message.warning('请填写昵称和邮箱！')
-                        return false;
-                    }
-                });
+                this.dialogVisible = true
             } else {
                 // 直接存储评论
                 if (this.textarea === '') {
                     this.$message.warning('请输入评论内容！')
                     return
                 }
+                // 评论数据
                 const commentParams: any = {
                     comment: this.textarea,
                     time: moment().format('YYYY-MM-DD HH:mm'),
                     getOS: this.$util.getOS(),
                     getBrowse: this.$util.getBrowse(),
+                    reply: []
                 }
-                if (reply) {
-                    commentParams['reply'] = reply;
+                if (commentId !== 0) {
+                    commentParams['commentId'] = commentId;
+                    if (reply) {
+                        commentParams['replyUser'] = reply;
+                    }
                 }
                 const {code, data} = await this.$api.updateArticle({
                     id: this.articleId,
+                    // 合并评论数据和用户数据
                     comment: Object.assign(commentParams, this.userInfo)
                 });
                 if (code === 0) {
