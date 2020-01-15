@@ -22,7 +22,7 @@
 </script>
 
 <style lang="less" scoped>
-.tagArticle {
-    width: 100%;
-}
+    .tagArticle {
+        width: 100%;
+    }
 </style>

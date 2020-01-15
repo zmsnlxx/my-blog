@@ -1,6 +1,6 @@
 <template>
     <section class="articleNav">
-        <el-tabs class="score-header" v-model="firstTab" type="card">
+        <el-tabs class="score-header" v-model="firstTab">
             <el-tab-pane v-for="(item,index) in tabName" :key="`${item.label}_${index}`" :label="item.label" :name="item.name"/>
             <keep-alive>
                 <component :is="firstTab"/>
@@ -25,6 +25,14 @@
             {label: '日常生活', name: 'LifeDiv', content: LifeDiv},
             {label: '绚丽风景', name: 'SceneryDiv', content: SceneryDiv,},
         ]
+
+        mounted() {
+
+        }
+
+        getArticleClass() {
+            return this.$api.get
+        }
     }
 </script>
 

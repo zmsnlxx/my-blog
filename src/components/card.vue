@@ -64,7 +64,7 @@
 					}
 					
 					.text {
-						text-indent: 25px;
+						/*text-indent: 25px;*/
 						line-height: 30px;
 						font-size: 14px;
 						color: #999999;

@@ -1,33 +1,51 @@
 <template>
 	<section class="home">
 		<!-- 轮播图模块 -->
-		<SwiperNav class="swiper"></SwiperNav>
-		<CardNav style="margin-top: 20px" :data="articleData"></CardNav>
-		<!--	分类展示模块	-->
-<!--		<classNav class="classNav"></classNav>-->
-		<!--	特别推荐模块	-->
-<!--		<recommend class="recommend"></recommend>-->
-		<!-- 最新文章模块 -->
-<!--		<newsNav></newsNav>-->
+		<SwiperNav class="swiper" :data="hostArticle"></SwiperNav>
+		<CardNav style="margin-top: 20px" :data="currentPageArticle"></CardNav>
+		<el-pagination
+				background
+				:page-size="5"
+				@current-change="handleCurrentChange"
+				layout="total, prev, pager, next"
+				:total="_.size(allArticleData)">
+		</el-pagination>
 	</section>
 </template>
 
 <script lang="ts">
     import {Vue, Component} from 'vue-property-decorator'
 	import SwiperNav from './swiper/index.vue';
-    import recommend from './recommend/index.vue';
-	import classNav from './class/index.vue';
-	import newsNav from './news/index.vue';
 
 
-	@Component({components: {SwiperNav,recommend,classNav,newsNav}})
+	@Component({components: { SwiperNav }})
     export default class HomeNav extends Vue {
-		articleData: any = []
-
+		articleData: any = [];
+		currentPage: number = 1;
+		allArticleData: any = [];
 
 		async mounted() {
-			this.articleData = await this.getArticle().then((req: Types.InterfaceData) => this.$util.checkResp(req))
-			window.localStorage.setItem('articleData', JSON.stringify(this.articleData))
+			const articleData = await this.getArticle().then((req: Types.InterfaceData) => this.$util.checkResp(req))
+			this.allArticleData = this.$lo.reverse(this.$lo.cloneDeep(articleData));
+			window.localStorage.setItem('articleData', JSON.stringify(this.allArticleData))
+		}
+
+		get currentPageArticle() {
+			if (this.$lo.isEmpty(this.allArticleData)) return [];
+			return this.allArticleData.slice( (this.currentPage - 1) * 5, this.currentPage * 5 )
+		}
+
+		get hostArticle() {
+			if (this.$lo.isEmpty(this.allArticleData)) return [];
+			return this.allArticleData.sort((a: any, b: any) => {
+				const x = a['commentData'].length;
+				const y = b['commentData'].length;
+				return x > y ? -1 : x < y ? 1 : 0;
+			}).slice(0, 5);
+		}
+
+		handleCurrentChange(val: number) {
+			this.currentPage = val;
 		}
 
 		getArticle() {

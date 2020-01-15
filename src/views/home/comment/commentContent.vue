@@ -144,7 +144,7 @@
 </script>
 
 <style lang="less" scoped>
-    @import '../../assets/css/common.less';
+    @import '../../../assets/css/common.less';
 
     .commentContent {
         .flex {

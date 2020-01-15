@@ -9,8 +9,12 @@
                         <span class="desc">{{ item.name }}</span>
                         <span class="desc">{{ item.getOS }}</span>
                         <span class="desc">{{ item.getBrowse }}</span>
-                        <span class="desc">{{ item.time }} {{item.userId}}</span>
+                        <span class="desc">{{ item.time }}</span>
                         <span v-if="item.userId !== userId" class="desc" style="color: #37c6c0" @click="goReply(item.id, index)">回复</span>
+<!--                        <span style="float: right" @click="clickFabulous">-->
+<!--                            <span>{{item.fabulousNum || 0}}</span>-->
+<!--                            <img src="../assets/images/fabulous.png" style="height: 17px;width: 17px;margin-left: 10px;" alt="">-->
+<!--                        </span>-->
                     </p>
                 </div>
             </div>
@@ -36,7 +40,7 @@
                         </p>
                     </div>
                 </div>
-                <div style="margin: 20px 0 60px 90px" v-show="isCommentReply && commentReplyIndex === i && commentId === item.id">
+                <div style="margin: 20px 0 60px 180px" v-show="isCommentReply && commentReplyIndex === i && commentId === item.id">
                     <el-input type="textarea" :rows="2"
                               placeholder="少侠写点什么呢。。。"
                               v-model="textarea"></el-input>
@@ -63,10 +67,35 @@
         reply: string = '';
         commentId: string | number = ''
 
+        // async mounted() {
+        //     // const a = await this.addComment();
+        //     // console.log(a);
+        //     const data = await this.clickFabulous();
+        //     console.log(data);
+        // }
+        //
+        // addComment() {
+        //     const params = {
+        //         comment: 'lxx',
+        //         time: '',
+        //         getOS: '微信用户',
+        //         getBrowse: '微信小程序',
+        //         reply: [],
+        //         name: 'ddd',
+        //         url: ''
+        //     }
+        //     return this.$api.addComment(params)
+        // }
+
         goReply(id: string | number, index: number) {
             this.commentId = id;
             this.$emit('goReply', {isReply: true, index, isCommentReply: false})
         }
+
+        // // 点赞
+        // clickFabulous() {
+        //     return this.$api.updateComment({fabulousNum: 1, id: '15785590599032920'})
+        // }
 
         goCurrentReply(id: string | number, index: number, params: any) {
             this.commentId = id;
@@ -107,6 +136,7 @@
             width: 60px;
             height: 60px;
             border-radius: 3px;
+            background-size: auto;
         }
 
         .list-content {

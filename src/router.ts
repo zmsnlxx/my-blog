@@ -13,10 +13,8 @@ export default new Router({
         {
             path: '/', component: entrance, redirect: {name: 'home'}, children: [
                 {path: '/home', name: 'home', component: () => import('./views/home/index.vue')},
-                {path: '/comment', name: 'common.less', component: () => import('./views/comment/index.vue')},
-                {path: '/article', name: 'article', component: () => import('./views/articleNav/index.vue')},
-                {path: '/edit', name: 'edit', component: () => import('./views/edit/index.vue')},
-                {path: '/newArticle', name: 'newArticle', component: () => import('./views/new/index.vue')},
+                {path: '/comment', name: 'common.less', component: () => import('./views/home/comment/index.vue')},
+                {path: '/article', name: 'article', component: () => import('./views/home/articleNav/index.vue')},
                 {path: '/tagArticle', name: 'article@tag', component: () => import('./views/home/tagArticle/index.vue')},
             ],
         },

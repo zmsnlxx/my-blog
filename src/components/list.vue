@@ -8,10 +8,10 @@
 				</span>
 			</div>
 			<div class="text item" v-for="(item,index) in data" :key="index">
-				<el-row class="row">
+				<el-row class="row" @click.native="goPath(item.id)">
 					<el-col :span="3" class="num" :style="{backgroundColor: colorArr[index]}">{{ index + 1 }}</el-col>
 					<el-col :span="15" class="title">{{ item.title }}</el-col>
-					<el-col :span="6" class="time">{{ item.time }}</el-col>
+					<el-col :span="6" class="time">{{ item.createdTime }}</el-col>
 				</el-row>
 			</div>
 		</el-card>
@@ -26,6 +26,14 @@
       @Prop(String) title
       @Prop(Array) data
       @Prop(Array) colorArr
+	  @Prop(String) path
+
+
+	  goPath(id) {
+		  console.log(this.path);
+		  if (!this.path) return;
+		  this.$router.push({ path: this.path, query: {id} })
+	  }
     
   }
 </script>
@@ -52,7 +60,7 @@
 						border-radius: 50% 50%;
 					}
 					.title{
-						margin-left: 5px;
+						margin-left: 10px;
 						font-size: 12px;
 						color: #999999;
 						overflow: hidden;

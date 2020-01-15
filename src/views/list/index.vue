@@ -2,15 +2,14 @@
 	<section class="list">
 		<!-- 作者模块 -->
 		<author-nav></author-nav>
-		<!--	标签	-->
-		<tagsNav></tagsNav>
+		<!-- 热评文章 -->
+		<lately-nav></lately-nav>
+		<!--	日历	-->
+		<dateNav></dateNav>
 		<!-- 日常吐槽 -->
 		<make-complaints></make-complaints>
-		<!-- 最近更新 -->
-		<lately-nav></lately-nav>
-
-		<!-- 最热文章/最新文章/点赞最多 -->
-<!--		<article-nav></article-nav>-->
+		<!--	标签	-->
+		<tagsNav></tagsNav>
 	</section>
 </template>
 
@@ -21,9 +20,8 @@
     import LatelyNav from './lately'
     import ArticleNav from './article/index'
 	import tagsNav from './tags'
+	import dateNav from './date'
 
-	@Component({components:{AuthorNav,MakeComplaints,LatelyNav,ArticleNav,tagsNav}})
-    export default class ListNav extends Vue {
-
-    }
+	@Component({components:{AuthorNav,MakeComplaints,LatelyNav,ArticleNav,tagsNav, dateNav}})
+    export default class ListNav extends Vue {}
 </script>

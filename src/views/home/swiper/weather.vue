@@ -55,7 +55,7 @@
     .weather {
         width: 100%;
         height: 100%;
-        background-image: url("https://img-blog.csdn.net/20180619095727703?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0l0Q2h1YW5neWk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70");
+        background-image: url('../../../assets/images/20180619095727703.jpeg');
         background-size: 100% 100%;
         padding: 30px 20px 0 60px;
         box-sizing: border-box;

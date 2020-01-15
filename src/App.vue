@@ -10,7 +10,7 @@
     import {Vue, Component} from 'vue-property-decorator'
     import HeaderNav from './views/other/header.vue'
 
-    @Component({components: {HeaderNav}})
+    @Component({components: { HeaderNav }})
     export default class App extends Vue {}
 </script>
 

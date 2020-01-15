@@ -1,75 +1,79 @@
 <template>
-    <section class="articleDetails">
-        <el-card class="card" v-loading="loading">
-            <div slot="header" class="clearfix">
-                <h1>{{ currentArticleInfo.title }}</h1>
-                <span class="desc">最后编辑时间：{{ currentArticleInfo.updateTime ? currentArticleInfo.updateTime : currentArticleInfo.createdTime}}</span>
-                <span class="desc">分类：{{ currentArticleInfo.categoryName }}</span>
-                <span class="desc">作者：{{ currentArticleInfo.author || 'lxx' }}</span>
-            </div>
-            <div class="card-body">
-                <div v-html="currentArticleInfo.content"></div>
-            </div>
-            <div class="btn-body" v-show="!loading">
-                <el-button class="btn" :type="isFabulous ? 'primary' : ''" @click="clickFabulous">点赞</el-button>
-                <el-button class="btn" @click="goShare">分享</el-button>
-                <label for="copy"></label>
-                <textarea id="copy" style="outline: none;border: none;width: 0;height: 0;resize:none">http://blog.zmsnlxx.cn/details?id={{ articleId }}</textarea>
-            </div>
-            <div class="next-body">
-                <div class="item" @click="goNextArticle(_.get(articleData, `${currentIndex - 1}.id`))">上一篇：{{articleData[currentIndex - 1] ? _.get(articleData, `${currentIndex - 1}.title`) : '暂无更多文章'}}</div>
-                <div class="item" @click="goNextArticle(_.get(articleData, `${currentIndex + 1}.id`))">下一篇：{{articleData[currentIndex + 1] ? _.get(articleData, `${currentIndex + 1}.title`) : '暂无更多文章'}}</div>
-            </div>
-        </el-card>
-        <el-card class="card">
-            <p style="margin: 0">相关文章推荐</p>
-            <div style="margin-top: 20px;display: flex;flex-wrap:wrap" v-if="_.size(relevantArticle) > 0">
-                <div class="articleTab" style="width: 50%;height: 40px;line-height: 40px" v-for="(item, index) in relevantArticle" :key="item.id" @click="goNextArticle(item.id)">{{ index + 1}}、{{ item.title }}</div>
-            </div>
-            <div style="margin-top: 20px" v-else>暂无相关文章</div>
-        </el-card>
-        <el-card class="card">
-            <p style="margin: 0">发表评论（{{ _.size(currentArticleInfo.commentData) }}条评论）</p>
-            <div v-show="!isReply && !isCommentReply" style="margin-top: 20px;padding: 0 20px">
-                <el-input type="textarea" :rows="2"
-                          placeholder="少侠写点什么呢。。。"
-                          v-model="textarea"></el-input>
-                <el-button type="primary" style="display: inline-block;float: right;margin-top: 20px" @click="submitComment(0)">发表评论</el-button>
-            </div>
-            <commentList
-                    v-if="_.size(currentArticleInfo.commentData) > 0"
-                    :commentData="currentArticleInfo.commentData"
-                    :commentIndex="commentIndex"
-                    :isReply="isReply"
-                    :isCommentReply="isCommentReply"
-                    :userId="_.get(userInfo, 'userId') || ''"
-                    :commentReplyIndex="commentReplyIndex"
-                    @changeReply="changeReply"
-                    @goReply="goReply"
-                    @reply="reply"
-                    @login="goLogin"
-                    @goCurrentReply="goCurrentReply"
-            ></commentList>
-            <div style="margin-top: 20px" v-else>暂无评论，快来写点什么吧！</div>
-        </el-card>
-        <!--    登录弹框     -->
-        <el-dialog title="请登录！"
-                   :visible.sync="dialogVisible"
-                   width="50%">
-            <el-form :model="userForm" :rules="rules" ref="userForm" >
-                <el-form-item label="昵称（必填）" prop="name">
-                    <el-input type="text" v-model="userForm.name" placeholder="请输入昵称"></el-input>
-                </el-form-item>
-                <el-form-item label="邮箱（必填）" prop="email">
-                    <el-input type="email" v-model="userForm.email" placeholder="请输入邮箱"></el-input>
-                </el-form-item>
-            </el-form>
-            <span slot="footer" class="dialog-footer">
+    <transition
+            enter-active-class="animated fadeInLeft"
+    >
+        <section v-if="show" class="articleDetails">
+            <el-card class="card" v-loading="loading">
+                <div slot="header" class="clearfix">
+                    <h1>{{ currentArticleInfo.title }}</h1>
+                    <span class="desc">最后编辑时间：{{ currentArticleInfo.updateTime ? currentArticleInfo.updateTime : currentArticleInfo.createdTime}}</span>
+                    <span class="desc">分类：{{ currentArticleInfo.categoryName }}</span>
+                    <span class="desc">作者：{{ currentArticleInfo.author || 'lxx' }}</span>
+                </div>
+                <div class="card-body">
+                    <div v-html="currentArticleInfo.content"></div>
+                </div>
+                <div class="btn-body" v-show="!loading">
+                    <el-button class="btn" :type="isFabulous ? 'primary' : ''" @click="clickFabulous">点赞</el-button>
+                    <el-button class="btn" @click="goShare">分享</el-button>
+                    <label for="copy"></label>
+                    <textarea id="copy" style="outline: none;border: none;width: 0;height: 0;resize:none">http://blog.zmsnlxx.cn/details?id={{ articleId }}</textarea>
+                </div>
+                <div class="next-body">
+                    <div class="item" @click="goNextArticle(_.get(articleData, `${currentIndex - 1}.id`))">上一篇：{{articleData[currentIndex - 1] ? _.get(articleData, `${currentIndex - 1}.title`) : '暂无更多文章'}}</div>
+                    <div class="item" @click="goNextArticle(_.get(articleData, `${currentIndex + 1}.id`))">下一篇：{{articleData[currentIndex + 1] ? _.get(articleData, `${currentIndex + 1}.title`) : '暂无更多文章'}}</div>
+                </div>
+            </el-card>
+            <el-card class="card">
+                <p style="margin: 0">相关文章推荐</p>
+                <div style="margin-top: 20px;display: flex;flex-wrap:wrap" v-if="_.size(relevantArticle) > 0">
+                    <div class="articleTab" style="width: 50%;height: 40px;line-height: 40px" v-for="(item, index) in relevantArticle" :key="item.id" @click="goNextArticle(item.id)">{{ index + 1}}、{{ item.title }}</div>
+                </div>
+                <div style="margin-top: 20px" v-else>暂无相关文章</div>
+            </el-card>
+            <el-card class="card">
+                <p style="margin: 0">发表评论（{{ _.size(currentArticleInfo.commentData) }}条评论）</p>
+                <div v-show="!isReply && !isCommentReply" style="margin-top: 20px;padding: 0 20px">
+                    <el-input type="textarea" :rows="2"
+                              placeholder="少侠写点什么呢。。。"
+                              v-model="textarea"></el-input>
+                    <el-button type="primary" style="display: inline-block;float: right;margin-top: 20px" @click="submitComment(0)">发表评论</el-button>
+                </div>
+                <commentList
+                        v-if="_.size(currentArticleInfo.commentData) > 0"
+                        :commentData="currentArticleInfo.commentData"
+                        :commentIndex="commentIndex"
+                        :isReply="isReply"
+                        :isCommentReply="isCommentReply"
+                        :userId="_.get(userInfo, 'userId') || ''"
+                        :commentReplyIndex="commentReplyIndex"
+                        @changeReply="changeReply"
+                        @goReply="goReply"
+                        @reply="reply"
+                        @login="goLogin"
+                        @goCurrentReply="goCurrentReply"
+                ></commentList>
+                <div style="margin-top: 20px" v-else>暂无评论，快来写点什么吧！</div>
+            </el-card>
+            <!--    登录弹框     -->
+            <el-dialog title="请登录！"
+                       :visible.sync="dialogVisible"
+                       width="50%">
+                <el-form :model="userForm" :rules="rules" ref="userForm" >
+                    <el-form-item label="昵称（必填）" prop="name">
+                        <el-input type="text" v-model="userForm.name" placeholder="请输入昵称"></el-input>
+                    </el-form-item>
+                    <el-form-item label="邮箱（必填）" prop="email">
+                        <el-input type="email" v-model="userForm.email" placeholder="请输入邮箱"></el-input>
+                    </el-form-item>
+                </el-form>
+                <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">取 消</el-button>
                 <el-button type="primary" @click="login">确 定</el-button>
             </span>
-        </el-dialog>
-    </section>
+            </el-dialog>
+        </section>
+    </transition>
 </template>
 
 <script lang="ts">
@@ -81,6 +85,7 @@
     @Component
 
     export default class articleDetails extends Vue {
+        show: boolean = false;
         articleId: number = 0;
         currentArticleInfo= {};
         loading: boolean = true;
@@ -128,6 +133,9 @@
             this.articleData = JSON.parse(articleData);
             this.articleId = this.$lo.get(this.$route, 'query.id');
             this.userInfo = JSON.parse(userInfo)
+            setTimeout(() => {
+                this.show = true;
+            });
             await this.getArticleDetails();
         };
 

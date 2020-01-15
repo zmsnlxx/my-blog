@@ -8,8 +8,8 @@
         >
             <ul class="ul">
                 <li class="li"><router-link class="routerJump" :style="{color: currentPath === '/home' ? 'bisque' : 'white'}" to="/home">首页</router-link></li>
-                <li class="li"><router-link class="routerJump" :style="{color: currentPath === '/article' ? 'bisque' : 'white'}" to="/article">文章汇总</router-link></li>
-                <li class="li"><router-link class="routerJump" :style="{color: currentPath === '/comment' ? 'bisque' : 'white'}" to="/comment">日常吐槽</router-link></li>
+                <li class="li"><router-link class="routerJump" :style="{color: currentPath === '/article' ? 'bisque' : 'white'}" to="/article">文章分类</router-link></li>
+                <li class="li"><router-link class="routerJump" :style="{color: currentPath === '/comment' ? 'bisque' : 'white'}" to="/comment">吐槽</router-link></li>
             </ul>
         </transition>
     </section>
@@ -59,7 +59,7 @@
                 font-size: 18px;
                 list-style: none;
                 float: left;
-                text-align: center;
+                text-align: left;
                 line-height: 60px;
                 .routerJump{
                     text-decoration: none;
