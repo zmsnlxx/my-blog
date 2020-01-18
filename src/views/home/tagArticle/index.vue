@@ -1,7 +1,9 @@
 <template>
     <section class="tagArticle">
         <CardNav v-if="_.size(article) > 0" :data="article"></CardNav>
-        <div v-else>暂无数据!</div>
+        <div v-else>
+            <img style="width: 30%;margin-left: 35%" src="../../../assets/images/error.png" alt="">
+        </div>
     </section>
 </template>
 
@@ -14,9 +16,7 @@
 
         @Watch('$route.query.id')
         async onChangeRoute(id: string){
-            console.log(id);
             this.article = await this.$api.getTagArticle({id}).then((req: Types.InterfaceData) => this.$util.checkResp(req));
-            console.log(this.article);
         }
     }
 </script>

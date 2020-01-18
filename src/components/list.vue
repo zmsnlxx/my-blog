@@ -10,8 +10,8 @@
 			<div class="text item" v-for="(item,index) in data" :key="index">
 				<el-row class="row" @click.native="goPath(item.id)">
 					<el-col :span="3" class="num" :style="{backgroundColor: colorArr[index]}">{{ index + 1 }}</el-col>
-					<el-col :span="15" class="title">{{ item.title }}</el-col>
-					<el-col :span="6" class="time">{{ item.createdTime }}</el-col>
+					<el-col :span="15" class="title">{{ item.title || item.comment }}</el-col>
+					<el-col :span="6" class="time">{{ item.updateTime ? $util.checkTime(item.updateTime) : $util.checkTime(item.time) }}</el-col>
 				</el-row>
 			</div>
 		</el-card>
@@ -30,7 +30,6 @@
 
 
 	  goPath(id) {
-		  console.log(this.path);
 		  if (!this.path) return;
 		  this.$router.push({ path: this.path, query: {id} })
 	  }

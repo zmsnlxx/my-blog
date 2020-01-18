@@ -10,9 +10,9 @@
 				<el-col class="col" :span="18">
 					<div class='text'>{{ item.abstract }}</div>
 					<div class="desc">
-						<span class="desc_item"><el-icon class="el-icon-star-off icon"></el-icon>{{ item.fabulousNum }}</span>
-						<span class="desc_item"><el-icon class="el-icon-view icon"></el-icon>{{ _.size(item.commentData) }}</span>
-						<span class="desc_item"><el-icon class="el-icon-timer icon"></el-icon>{{ item.updateTime ? item.updateTime : item.createdTime }}</span>
+						<span class="desc_item"><img class="img" src="../assets/images/fabulous.png" alt="">{{ item.fabulousNum }}</span>
+						<span class="desc_item"><img class="img" src="../assets/images/comment.png" alt="">{{ _.size(item.commentData) }}</span>
+						<span class="desc_item"><img class="img" src="../assets/images/time.png" alt="">{{ $util.checkTime(item.updateTime) }}</span>
 					</div>
 				</el-col>
 			</el-row>
@@ -21,8 +21,8 @@
 </template>
 
 <script>
-    import {Vue, Component, Prop} from 'vue-property-decorator'
-    
+    import {Vue, Component, Prop} from 'vue-property-decorator';
+
     @Component
     export default class CardNav extends Vue {
         @Prop(Array) data
@@ -79,7 +79,7 @@
 					}
 					
 					.desc {
-						width: 100%;
+						width: 95%;
 						position: absolute;
 						bottom: 0;
 						
@@ -87,11 +87,13 @@
 							font-size: 14px;
 							color: #999999;
 							display: inline-block;
-							margin-right: 20px;
+							margin-left: 20px;
 							float: right;
 							
-							.icon {
-								margin-right: 5px;
+							.img {
+								width: 17px;
+								margin-right: 10px;
+								vertical-align: middle
 							}
 							
 						}

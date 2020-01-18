@@ -1,37 +1,47 @@
 <template>
+<!--  分类文章  -->
     <section class="articleNav">
-        <el-tabs class="score-header" v-model="firstTab">
-            <el-tab-pane v-for="(item,index) in tabName" :key="`${item.label}_${index}`" :label="item.label" :name="item.name"/>
-            <keep-alive>
-                <component :is="firstTab"/>
-            </keep-alive>
+        <el-tabs class="score-header" v-model="currentClassId" @tab-click="handleClick">
+            <el-tab-pane v-for="(item,index) in classData" :key="`${item.label}_${index}`" :label="item.name" :name="item.id"/>
+            <CardNav v-if="_.size(articleData) > 0" style="margin-top: 20px" :data="articleData"></CardNav>
+            <div v-else>
+                <img style="width: 30%;margin-left: 35%" src="../../../assets/images/error.png" alt="">
+            </div>
         </el-tabs>
     </section>
 </template>
 
-<script>
-    import {Vue, Component} from 'vue-property-decorator'
-    import EmotionDiv from './Emotion/index'
-    import LifeDiv from './Life/index'
-    import SceneryDiv from './Scenery/index'
-    import TechnologyDiv from './Technology/index'
+<script lang="ts">
+    import {Vue, Component} from 'vue-property-decorator';
+    import Types from "../../../../types";
 
-    @Component({components: {EmotionDiv, LifeDiv, SceneryDiv,TechnologyDiv}})
+
+    @Component
     export default class articleNav extends Vue {
-        firstTab = 'TechnologyDiv'
-        tabName = [
-            {label: '技术汇总', name: 'TechnologyDiv', content: TechnologyDiv},
-            {label: '个人情感', name: 'EmotionDiv', content: EmotionDiv},
-            {label: '日常生活', name: 'LifeDiv', content: LifeDiv},
-            {label: '绚丽风景', name: 'SceneryDiv', content: SceneryDiv,},
-        ]
+        classData: Array<Types.ArticleClassData> = []; // 文章分类
+        currentClassId: number | string = '';
+        articleData: Array<object> = []
 
-        mounted() {
 
+        async mounted() {
+            this.classData = await this.getArticleClass().then((req: Types.InterfaceData) => this.$util.checkResp(req));
+            this.currentClassId = this.$lo.get(this.classData, '0.id')
+            await this.getCurrentClassArticle()
         }
 
+        async handleClick(tab: any) {
+            this.currentClassId = tab.name;
+            await this.getCurrentClassArticle();
+        }
+
+        // 获取当前分类下的所有文章
+        async getCurrentClassArticle() {
+            this.articleData = await this.$api.getCurrentClassArticle({ id: this.currentClassId }).then((req: Types.InterfaceData) => this.$util.checkResp(req));
+        }
+
+        // 获取所有分类
         getArticleClass() {
-            return this.$api.get
+            return this.$api.getArticleClass();
         }
     }
 </script>

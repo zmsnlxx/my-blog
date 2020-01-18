@@ -75,7 +75,6 @@ const DecodeCookie = (str: string) => {
 };
 
 const checkResp = (resp: any) => {
-    console.log(resp);
     if (resp && (resp.code === 0 || resp.code === 1)) {
         if (resp.data !== null) {
             return resp.data;
@@ -93,6 +92,19 @@ const getRegExp = (re: any) => {
     if (re.multiline) flags += 'm';
     return flags;
 };
+
+const checkTime = (val: any) => {
+    return moment(Number(val)).format('YYYY-MM-DD HH:mm:ss')
+}
+
+// 排序
+const sortKey = (array: Array<any>, key: string) => {
+    return array.sort(function(a, b) {
+        const x = typeof a[key] === 'object' ? a[key].length : a[key];
+        const y = typeof b[key] === 'object' ? b[key].length : b[key];
+        return y - x;
+    });
+}
 
 /**
  * 判断复杂数据类型
@@ -175,7 +187,9 @@ export const util = {
     getBrowse,
     DecodeCookie,
     checkResp,
-    cloneDeep
+    cloneDeep,
+    sortKey,
+    checkTime
 };
 
 export default {
@@ -183,6 +197,5 @@ export default {
         Vue.prototype.$lo = _;
         Vue.prototype._ = _;
         Vue.prototype.$util = util;
-        Vue.prototype.moment = moment;
     },
 };

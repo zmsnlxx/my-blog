@@ -1,4 +1,5 @@
 <template>
+<!--   轮播图  -->
     <section class="swiper">
         <div class="left">
             <el-carousel height="250px" class="el-carousel">

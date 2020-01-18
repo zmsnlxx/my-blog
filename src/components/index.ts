@@ -1,17 +1,18 @@
 import CardNav from './card.vue';
-import LabelNav from './label.vue';
 import ListNav from './list.vue';
-import SmallLabel from './Small-label.vue';
 import commentList from './commentList.vue';
+import loginDialog from './loginDialog.vue';
+import formList from './formList.vue';
+
 
 
 export default {
     install(Vue: any) {
         Vue.component('CardNav', CardNav);
-        Vue.component('LabelNav', LabelNav);
         Vue.component('ListNav', ListNav);
-        Vue.component('SmallLabel', SmallLabel);
         Vue.component('commentList', commentList);
+        Vue.component('loginDialog', loginDialog);
+        Vue.component('formList', formList);
     },
 };
 

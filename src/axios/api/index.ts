@@ -1,4 +1,4 @@
-import user from './user';
+import articleClass from './articleClass';
 import comment from './comment';
 import article from './article';
 import tags from './tags';
@@ -6,7 +6,7 @@ import tags from './tags';
 
 const apiList = {
     // 分模块
-    ...user,
+    ...articleClass,
     ...comment,
     ...article,
     ...tags

@@ -1,8 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import entrance from './views/index.vue';
-import login from './views/other/login.vue';
-import personal from './views/other/personal.vue';
 import article from './views/other/articleDetails.vue';
 
 Vue.use(Router);
@@ -18,8 +16,6 @@ export default new Router({
                 {path: '/tagArticle', name: 'article@tag', component: () => import('./views/home/tagArticle/index.vue')},
             ],
         },
-        {path: '/login', component: login},
-        {path: '/personal', component: personal},
         {path: '/details', component: article},
     ],
 });

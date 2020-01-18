@@ -26,7 +26,7 @@
 
 		async mounted() {
 			const articleData = await this.getArticle().then((req: Types.InterfaceData) => this.$util.checkResp(req))
-			this.allArticleData = this.$lo.reverse(this.$lo.cloneDeep(articleData));
+			this.allArticleData = this.$lo.cloneDeep(articleData).sort((a: any, b: any) => b.updateTime - a.updateTime)
 			window.localStorage.setItem('articleData', JSON.stringify(this.allArticleData))
 		}
 
@@ -37,11 +37,7 @@
 
 		get hostArticle() {
 			if (this.$lo.isEmpty(this.allArticleData)) return [];
-			return this.allArticleData.sort((a: any, b: any) => {
-				const x = a['commentData'].length;
-				const y = b['commentData'].length;
-				return x > y ? -1 : x < y ? 1 : 0;
-			}).slice(0, 5);
+			return this.$util.sortKey(this.$lo.cloneDeep(this.allArticleData), 'commentData').slice(0, 5)
 		}
 
 		handleCurrentChange(val: number) {

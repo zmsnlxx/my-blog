@@ -55,7 +55,7 @@
     .weather {
         width: 100%;
         height: 100%;
-        background-image: url('../../../assets/images/20180619095727703.jpeg');
+        background-image: url('../../../assets/images/weather.jpeg');
         background-size: 100% 100%;
         padding: 30px 20px 0 60px;
         box-sizing: border-box;

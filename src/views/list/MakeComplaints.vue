@@ -1,35 +1,27 @@
 <template>
 	<section class="complaints">
-		<list-nav :data="data" :color-arr="colorArr" :title="title">
+		<list-nav :data="commentData" :color-arr="colorArr" :title="title">
 			<el-icon slot="icon" class="el-icon-milk-tea" style="margin-right: 10px"></el-icon>
 		</list-nav>
 	</section>
 </template>
 
-<script>
+<script lang="ts">
     import {Vue, Component} from 'vue-property-decorator'
-    
-    @Component
+	import Types from '../../../types/index';
+
+	@Component
     export default class MakeComplaints extends Vue {
         title = '日常吐槽'
-        colorArr = ['aquamarine', 'cornflowerblue', 'deeppink', 'lightpink']
-        data = [
-            {
-                title: '当时间消磨掉了你的热情你便会发现那些曾令你歇斯底里的去执著的人现已变得可有可无',
-                time: '2019-05-28'
-            },
-            {
-                title: '当时间消磨掉了你的热情你便会发现那些曾令你歇斯底里的去执著的人现已变得可有可无',
-                time: '2019-05-28'
-            }, {
-                title: '当时间消磨掉了你的热情你便会发现那些曾令你歇斯底里的去执著的人现已变得可有可无',
-                time: '2019-05-28'
-            }, {
-                title: '当时间消磨掉了你的热情你便会发现那些曾令你歇斯底里的去执著的人现已变得可有可无',
-                time: '2019-05-28'
-            }
-        ]
-        
+        colorArr = ['aquamarine', 'cornflowerblue', 'deeppink', 'lightpink', 'coral']
+		commentData: any = []
+
+		async mounted() {
+			const commentData = await this.$api.getComment().then((req: Types.InterfaceData) => this.$util.checkResp(req));
+			this.commentData = this.$util.sortKey(this.$lo.cloneDeep(commentData), 'time').slice(0, 5)
+
+		}
+
     }
 </script>
 <style lang="less">

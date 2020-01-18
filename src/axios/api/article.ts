@@ -5,6 +5,11 @@ const getArticle = (): any => {
     return axios.get(`article/getAllArticle`);
 };
 
+// 获取分类所有文章
+const getCurrentClassArticle = (params:{id: any}): object => {
+    return axios.get(`article/getArticle`,{params});
+};
+
 // 获取指定文章详情
 const getArticleDetails = (params: {id: any}) => {
     return axios.get(`article/details`,{params});
@@ -24,7 +29,8 @@ const article = {
     getArticle,
     getArticleDetails,
     getTagArticle,
-    updateArticle
+    updateArticle,
+    getCurrentClassArticle
 };
 export default article;
 

@@ -23,6 +23,14 @@ export interface ArticleData {
     id: any;
 }
 
+export interface ArticleClassData {
+    name: string;
+    id: string | number;
+    desc: string;
+    _id?: string;
+    _v?: string
+}
+
 export interface InterfaceData {
     code: number;
     data: any;
