@@ -16,7 +16,7 @@
     "animate.css": "^3.7.0",
     "axios": "^0.18.0",
     "babel-plugin-transform-class": "^0.3.0",
-    "chart.js": "^2.7.3",
+    "chart.js": "^2.9.4",
     "core-js": "^2.6.5",
     "css-loader": "^3.0.0",
     "element-ui": "^2.4.11",
