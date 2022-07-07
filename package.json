@@ -26,7 +26,7 @@
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
     "lodash": "^4.17.11",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
     "vue-property-decorator": "^8.1.0",
