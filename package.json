@@ -20,7 +20,7 @@
     "core-js": "^2.6.5",
     "css-loader": "^3.0.0",
     "element-ui": "^2.4.11",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "js-cookie": "^2.2.0",
     "jszip": "^3.1.5",
     "less": "^3.0.4",
